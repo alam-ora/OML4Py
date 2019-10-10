@@ -25,7 +25,11 @@ _Introduction to the lab environment and setting up the student desktop/laptop f
 _Walk through the common techniques involved in data preparation for machine learning, including feature engineering, scaling, sampling, along with a brief overview on common algorithms used  for Regression, Classification, Clustering, Anomaly detection, etc._
 
 <a href="./Lab02.md">Lab 02</a>
-<a href="Lab02.html">Lab 02 html</a>
+<p/><a href="Lab02.html">Lab 02 html</a>
+<p/>
+
+<a href="Lab04.ipynb">Lab 02 ipynb</a>
+
 
 - **Lab** : [Using Regression to estimate house prices] (./Lab02.md)
 
