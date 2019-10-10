@@ -1,5 +1,4 @@
 ![](images/orcl-logo.png)
-![](images/topbar.png)
 # Practical Oracle Machine Learning with Python
 ![](images/topbar.png)
 
