@@ -1,9 +1,8 @@
-<table style="font-size: 25px; font-weight: 999; padding-left: 5px; padding-bottom: 5px;" bgcolor=white width="100%" height="100">
-<tr><img src="./images/orcl-logo.png" width="100" /></tr>
-<tr><td><img src="./images/oml-logo.svg" width="200" /></td>
-<td>Practical Oracle Machine Learning with Python</td></tr>
-<tr><img src="./images/topbar.png"/></tr>
-</table> 
+![](images/orcl-logo.png)
+![](images/topbar.png)
+| - | - |
+|---|---|
+| <img src="./images/oml-logo.svg" width="150"/> |# Practical Oracle Machine Learning with Python |
 
 ![](images/topbar.png)
 
