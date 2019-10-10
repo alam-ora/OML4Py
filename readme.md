@@ -1,9 +1,6 @@
 ![](images/orcl-logo.png)
 ![](images/topbar.png)
-| - | - |
-|---|---|
-| <img src="./images/oml-logo.svg" width="150"/> |# Practical Oracle Machine Learning with Python |
-
+# Practical Oracle Machine Learning with Python
 ![](images/topbar.png)
 
 **Artificial Intelligence (AI)** and **Machine Learning (ML)** have become increasingly necessary for enterprises to translate today's data into direct business value. This course introduces learners to the basic concepts of AI/ML, using a mix of engaging lectures and hands-on activities to help you navigate the first steps in this exciting field. The exercises present real world use cases that show how Oracle is actively helping companies maximize business benefits through AI and ML.
