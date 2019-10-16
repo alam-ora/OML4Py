@@ -16,23 +16,27 @@ This hands-on workshop focuses on Oracle Machine Learning for Python (OML4PY) wh
 
 [**Lab 0:** Setup the Lab Environment](./pages/Lab00.html)
 
-Introduction to the lab environment and setting up the student desktop/laptop for connecting to the lab virtual machine.
+Introduction to the lab environment and setting up the student desktop to connect to the lab virtual machine.
 
-- [**Lab 1:** Introduction to Oracle Machine Learning for Python](./pages/Lab01.html)
+[**Lab 1:** Introduction to Python](./pages/Lab01.html)
 
-Introduction to the lab environment and setting up the student desktop/laptop for connecting to the lab virtual machine. The student will learn to use OML4Py to connect to the Oracle Database and move data between Python and the database. The lab also covers data exploration and manipulation of data using OML4Py&#39;s transparency layer, that allows the use of common python Pandas DataFrame functions on data residing in the Oracle database._
+erer
 
-- [**Lab 2:** Use Regression to estimate house prices](./pages/Lab02.html)
+[**Lab 2:** Introduction to Oracle Machine Learning for Python](./pages/Lab01.html)
 
-Explore the CA housing prices dataset and build machine learning models for predicting house prices in the state of California. The lab walks through a real-world use case and the steps to apply an AI/ML solution for building accurate prediction models. You begin with exploratory data analysis on the housing data and engineer optimal features to assist the ML algorithms. Then continue on with using multiple ML algorithms such as Generalized Linear Models (GLM), Random Forests, and Gradient Boosting, measure and compare respective prediction accuracies. You will also use in-database python execution for optimal execution of ML algorithms in the Oracle Database, and the OML4Py transparency layer functions._
+Introduction to the lab environment and setting up the student desktop/laptop for connecting to the lab virtual machine. The student will learn to use OML4Py to connect to the Oracle Database and move data between Python and the database. The lab also covers data exploration and manipulation of data using OML4Py&#39;s transparency layer, that allows the use of common python Pandas DataFrame functions on data residing in the Oracle database.
+
+[**Lab 3:** Use Regression to estimate house prices](./pages/Lab02.html)
+
+Explore the CA housing prices dataset and build machine learning models for predicting house prices in the state of California. The lab walks through a real-world use case and the steps to apply an AI/ML solution for building accurate prediction models. You begin with exploratory data analysis on the housing data and engineer optimal features to assist the ML algorithms. Then continue on with using multiple ML algorithms such as Generalized Linear Models (GLM), Random Forests, and Gradient Boosting, measure and compare respective prediction accuracies. You will also use in-database python execution for optimal execution of ML algorithms in the Oracle Database, and the OML4Py transparency layer functions.
 
 - **Lab** : Build prediction models to classify fraudulent credit card transactions
 
-_Build machine learning models to detect fraudulent credit card transactions using real-world data from financial institutions (Kaggle dataset). Prepare an unbalanced dataset using popular techniques such as under-sampling and utilize k-fold to learn iteratively and find the best hyperparameters for the algorithm. Create confusion matrix and compare prediction accuracy using Support Vector Machines, Logistic Regression and Neural Nets. You will also learn to save python objects and scripts in the Oracle database, a feature of OML4Py._
+Build machine learning models to detect fraudulent credit card transactions using real-world data from financial institutions (Kaggle dataset). Prepare an unbalanced dataset using popular techniques such as under-sampling and utilize k-fold to learn iteratively and find the best hyperparameters for the algorithm. Create confusion matrix and compare prediction accuracy using Support Vector Machines, Logistic Regression and Neural Nets. You will also learn to save python objects and scripts in the Oracle database, a feature of OML4Py.
 
 - **Lab** : Clustering wine data using unsupervised learning algorithms
 
-_Use unsupervised learning methods such as K-Means to cluster the Wine Data sourced from three different cultivars from Italy. Using data scaling and  dimensionality reduction techniques like PCA and ICA, you will automatically generate independent set of features that help explain the variance in the dataset. Analyze the results of multiple approaches for clustering the Wine data and report accuracy._
+Use unsupervised learning methods such as K-Means to cluster the Wine Data sourced from three different cultivars from Italy. Using data scaling and  dimensionality reduction techniques like PCA and ICA, you will automatically generate independent set of features that help explain the variance in the dataset. Analyze the results of multiple approaches for clustering the Wine data and report accuracy.
 
 - **Lab** : Using AutoML for automatic feature and model selection
 
