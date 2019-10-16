@@ -18,11 +18,12 @@ This hands-on workshop focuses on Oracle Machine Learning for Python (OML4PY) wh
 
 - Introduction to Oracle Machine Learning for Python
 
-_Introduction to the lab environment and setting up the student desktop/laptop for connecting to the lab virtual machine. The student will learn to use OML4Py to connect to the Oracle Database and move data between Python and the database. The lab also covers data exploration and manipulation of data using OML4Py&#39;s transparency layer, that allows the use of common python Pandas DataFrame functions on data residing in the Oracle database._
+Introduction to the lab environment and setting up the student desktop/laptop for connecting to the lab virtual machine. The student will learn to use OML4Py to connect to the Oracle Database and move data between Python and the database. The lab also covers data exploration and manipulation of data using OML4Py&#39;s transparency layer, that allows the use of common python Pandas DataFrame functions on data residing in the Oracle database._
 
-- ![Use Regression to estimate house prices] (./html/Lab02.html)
+<a href="./html/Lab02.html">Use Regression to estimate house prices</a>
+[Use Regression to estimate house prices](./html/Lab02.html)
 
-_Explore the CA housing prices dataset and build machine learning models for predicting house prices in the state of California. The lab walks through a real-world use case and the steps to apply an AI/ML solution for building accurate prediction models. You begin with exploratory data analysis on the housing data and engineer optimal features to assist the ML algorithms. Then continue on with using multiple ML algorithms such as Generalized Linear Models (GLM), Random Forests, and Gradient Boosting, measure and compare respective prediction accuracies. You will also use in-database python execution for optimal execution of ML algorithms in the Oracle Database, and the OML4Py transparency layer functions._
+Explore the CA housing prices dataset and build machine learning models for predicting house prices in the state of California. The lab walks through a real-world use case and the steps to apply an AI/ML solution for building accurate prediction models. You begin with exploratory data analysis on the housing data and engineer optimal features to assist the ML algorithms. Then continue on with using multiple ML algorithms such as Generalized Linear Models (GLM), Random Forests, and Gradient Boosting, measure and compare respective prediction accuracies. You will also use in-database python execution for optimal execution of ML algorithms in the Oracle Database, and the OML4Py transparency layer functions._
 
 - **Lab** : Build prediction models to classify fraudulent credit card transactions
 
