@@ -42,4 +42,7 @@ Use unsupervised learning methods such as K-Means to cluster the Wine Data sourc
 
 Automate end-to-end process of applying machine learning to real-world problems using the emerging AutoML techniques. In this lab you will use the automatic feature selection, model selection, and hyperparameter tuning of AutoML feature of OML4Py to quickly create high-quality machine learning models.
 
+[**READMEE.MD**](./pages/readmee.md)
+
+
 ![](images/topbar.png)
