@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Lab_05</title>
+<title>Lab02</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,19 +13077,27 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Lab-5:-Automatic-Machine-Learning"><span style="color:teal">Lab 5: Automatic Machine Learning</span><a class="anchor-link" href="#Lab-5:-Automatic-Machine-Learning">&#182;</a></h1><hr>
-<p>Machine learning today has made its way into the enterprise domain. However, the traditional ML process is human-dependent, and not all businesses have the resources to invest in an experienced data science team. AutoML may be the answer to such situations.</p>
-<p><strong>Automatic Machine Learning (AutoML)</strong> is the process of automating the end-to-end process of applying machine learning to real-world problems. The purpose of AutoML is to automate the repetitive tasks like feature selection, model selection and model tuning, so that data scientists can actually spend more time on the problem at hand. AutoML essentially brings machine learning in the hands of people who have no major expertise in this field.</p>
-<p><strong>Oracle Machine Learning for Python</strong> has the following <strong>AutoML</strong> capabilities:</p>
+<h1 id="Lab-02:-Using-Regression-to-Predict-House-Prices"><span style="color:teal">Lab 02: Using Regression to Predict House Prices</span><a class="anchor-link" href="#Lab-02:-Using-Regression-to-Predict-House-Prices">&#182;</a></h1><hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Regression</strong> models in machine learning are used to predict a continuous value based on a set of features. Regression is mostly used for forecasting a target value (numeric) by formulating its relationship with a set of independent variables. An example of a real-world application of regression is in predicting house prices, given features such as the house size, total rooms, property location, family income, etc., which are the features.</p>
+<p>In this lab exercise, you will explore various regression techniques and machine learning algorithms for predicting house prices in the state of California. You will also learn about the methods and optimization techniques involved in preparing the dataset, as not every dataset is a perfectly curated for machine learning. Regression is a type of <strong>supervised learning</strong> that requres data that is properly labeled and cleansed to achieve the best accuracy in prediction.</p>
+<p>The <strong>Oracle Database</strong> offers a variety of regression techniques in the database such as ridge regression, feature creation and feature selection, on data stored in multiple formats including text and transactional. Performing machine learning in the Database makes available the processing power, memory, and storage capacities of the database server, which is ideally suited for solving high performance and large-scale machine learning problems.</p>
+<p>This lab will walk you through a complete machine learning solution using a real-world dataset to let you see how all the pieces come together. We’ll attempt to follow the general machine learning workflow step-by-step:</p>
 <ul>
-<li><p><strong>Automatic Feature Selection</strong> that reduces the size of the original feature set to help speed-up model training and tuning, without compromising on model quality.</p>
-</li>
-<li><p><strong>Automatic Model Selection</strong> that selects the appropriate machine learning algorithm from the supported Oracle Advanced Analytics algorithms.</p>
-</li>
-<li><p><strong>Automatic Model Tuning</strong> that tunes the model hyperparameters to maximize the scoring metric selected from the several scoring metrics supported for the model.</p>
-</li>
+<li>Exploratory data analysis</li>
+<li>Data cleaning and formatting</li>
+<li>Feature engineering and selection</li>
+<li>Compare several machine learning models</li>
+<li>Perform hyperparameter tuning on the best model</li>
+<li>Draw conclusions</li>
 </ul>
-<p>AutoML performs those common data scientist tasks automatically, with less effort and potentially better results. It also leverages the parallel processing and scalability of Oracle Database and machine learning techniques to minimize execution time while producing high-quality results.</p>
+<p>Along the way, we’ll see how to specifically implement each part in Python and utilize <strong>Oracle Machine Learning for Python (OML4Py)</strong> to perform efficient in-Database analysis.</p>
 
 </div>
 </div>
@@ -13097,14 +13105,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.1.-Automatic-Feature-Selection"><span style="color:teal">5.1. Automatic Feature Selection</span><a class="anchor-link" href="#5.1.-Automatic-Feature-Selection">&#182;</a></h2><hr>
-<p>In a data analytics application, feature selection is a critical stage in data preprocessing that has a high impact on both runtime and model performance. It is the process of taking a dataset and constructing explanatory features that can be used to train a machine learning model for a prediction problem.</p>
-<p>The traditional approach to feature selection is to manually build the features using domain knowledge and statistical analysis, which is tedious, time-consuming, and error prone. Moreover, the steps for feature engineering nned to be re-written for each new dataset.</p>
-<p><strong>Automatic Feature Selection</strong>, a compoment of OML4Py's <strong>Automatic Machine Learning (AutoML)</strong>, improves upon this standard workflow by automatically extracting useful and meaningful features from a set of related data, using a framework that can be applied to any problem. It cuts down on the time spent in feature selection and ideally, should be made a standard part of any machine learning workflow.</p>
-<p>Automatic feature selection uses several feature-ranking algorithms to identify the best feature subset that reduces model training time without compromising model performance. Oracle advanced meta-learning techniques quickly prune the search space of this feature selection optimization.</p>
-<p>Automatic feature selection is handled by <strong>oml.automl.FeatureSelection</strong> class, which takes in a data set and the Oracle Advanced Analytics algorithm on which to test the feature reduction. For information on the parameters and methods of the class, you may invoke <strong>help(oml.automl.FeatureSelection)</strong>.</p>
-<blockquote><p><strong>Note:</strong> Oracle AutoML Automatic Feature Selection currently supports <strong>Classification</strong> algorithms.</p>
-</blockquote>
+<h2 id="STEP-1:-Exploratory-Data-Analysis"><span style="color:teal">STEP 1: Exploratory Data Analysis</span><a class="anchor-link" href="#STEP-1:-Exploratory-Data-Analysis">&#182;</a></h2><hr>
+<p>When getting started with <strong>Machine Learning</strong>, it is best to work with real-world data . For this lab you will use the <strong>California Housing Prices</strong> dataset. This data is from the 1990 California census but for the sake of lab purposes we will pretend it is recent data. The data has been slightly altered since it was originally captured, and available for download from <a href="https://github.com/ageron/handson-ml/tree/master/datasets/housing">github</a>. The original dataset and its description is available <a href="https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.htm">here</a>. The dataset has been pre-downloaded in the <strong>datasets</strong> folder.</p>
 
 </div>
 </div>
@@ -13112,10 +13114,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="STEP-1:-Load-and-Explore-the-Dataset"><span style="color:teal">STEP 1: Load and Explore the Dataset</span><a class="anchor-link" href="#STEP-1:-Load-and-Explore-the-Dataset">&#182;</a></h3><p>To demonstrate <strong>Automatic Feature Selection</strong> we will use a labeled dataset for predicting product backorders which was sourced from "Can You Predict Product Backorders?" dataset from Kaggle. Predicting whether the product will be backrodered based on past sales, is a Classification problem with binary outcome.</p>
-<blockquote><p>The dataset was prepared for the purposes of this lab, mainly that the null values were replaced with estimated samples, character data was transformed to numeric, and irrelevant features and rows were removed.</p>
-</blockquote>
-<p><strong>1)</strong> Load the dataset from the CSV file using <strong>read_csv</strong> function in Pandas. It is also important to shuffle the dataset to reset the order of records in case the datafile was ordered prior to creation.</p>
+<p><strong>1)</strong> Define a Python function <strong>load_housing_data</strong> that will load the dataset from the file system into a <strong>Pandas DataFrame</strong> object named <strong>housing</strong>. Run the function to fetch the data in the DataFrame.</p>
 
 </div>
 </div>
@@ -13126,12 +13125,13 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<span class="c1"># Import data from file</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;datasets/backorders/backorders.csv&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">load_housing_data</span><span class="p">():</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;datasets&quot;</span><span class="p">,</span> <span class="s2">&quot;housing&quot;</span><span class="p">,</span> <span class="s2">&quot;housing.csv&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 
-<span class="c1"># Shuffle the data so the ordering is random</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">housing</span> <span class="o">=</span> <span class="n">load_housing_data</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13142,9 +13142,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>2)</strong> Connnect to the Oracle Database using <strong>oml.connect()</strong> with <strong>automl=True</strong>. This is required in order to enable a connection for Automatic Machine Learning.</p>
-<blockquote><p><strong>Note:</strong> An AutoML enabled connection uses database-resident connection pooling, which means that the database administrator must have first activated database-resident connection pooling for the connection to be scuccessful. This setup has already been performed for this lab.</p>
-</blockquote>
+<p><strong>2)</strong> Let's take a look at the top five rows using Pandas DataFrame <strong>head()</strong> function. Each row represents one district in the State of California. Observe the various attributes and their values.</p>
 
 </div>
 </div>
@@ -13154,16 +13152,187 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
 
-<span class="kn">import</span> <span class="nn">oml</span>
-<span class="kn">from</span> <span class="nn">oml</span> <span class="k">import</span> <span class="n">automl</span>
-<span class="kn">from</span> <span class="nn">oml</span> <span class="k">import</span> <span class="n">algo</span>
-<span class="kn">from</span> <span class="nn">oml.automl</span> <span class="k">import</span> <span class="n">FeatureSelection</span>
-<span class="kn">import</span> <span class="nn">time</span>
+    </div>
+</div>
+</div>
 
-<span class="n">oml</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;labuser&quot;</span><span class="p">,</span> <span class="s2">&quot;labuser&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1521</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;pdb&quot;</span><span class="p">,</span> <span class="n">automl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are 10 attributes in total: <strong>longitude</strong>, <strong>latitide</strong>, <strong>housing_median_age</strong>, <strong>total_rooms</strong>, <strong>total_bedrooms</strong>, <strong>population</strong>, <strong>households</strong>, <strong>median_income</strong>, <strong>median_house_value</strong>, and <strong>ocean_proximity</strong>. More details on the data is available <a href="https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.htm">here</a>.</p>
+<p><strong>3)</strong> The <strong>info()</strong> method provides a quick description of the data, particularly the total number of rows, column names and total columns. Counts of non-null column value, and column data types are returned as well.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above dataset has <strong>20640</strong> instances, which is fairly small by ML standards but still very much like real-world data. Note that the <strong>total_bedrooms</strong> has some <strong>null</strong> values, <strong>207</strong> out of <strong>20640</strong> to be exact.</p>
+<p>All attributes are numerical except <strong>ocean_proximity</strong> which is a type of Python object. But since the data was loaded from a text file, you can deduce it to be of type <strong>text</strong>.</p>
+<p><strong>4)</strong> Let's check the data values in the text column <strong>ocean_proximity</strong> using <strong>value_counts()</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="p">[</span><span class="s2">&quot;ocean_proximity&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see, ocean_proximity is a categorical attribute and has five unique values or categories, mainly <strong>&lt;1H OCEAN</strong>, <strong>INLAND</strong>, <strong>NEAR OCEAN</strong>, <strong>NEAR BAY</strong>, and <strong>ISLAND</strong>.  The values are cateogrized based on the geographical area's proximity to the ocean.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> Let's look at the data distribution for other fields. The <strong>describe()</strong> method provides an insight on the attributes especaily the numerical attributes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <strong>count</strong>, <strong>mean</strong>, <strong>min</strong>, and <strong>max</strong> attributes are self-explanatory. Note that <strong>null</strong> values are ignored, as evident from <strong>total_bedrooms</strong> count being <strong>20433</strong> out of <strong>20640</strong> rows (<strong>207</strong> nulls). The <strong>std</strong> deviation is also computed which is the measure of dispersement or the "spread" factor for each attribute.</p>
+<p><strong>6)</strong> Using <strong>matplotlib</strong>, plot a histogram on the dataframe attributes to get a quick feel of data distribution of the columns. Instead of individually plotting the histogram for each attribute, use the dataframe's <strong>hist()</strong> function as it will plot histograms on all numerical columns in a single step.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">housing</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A few items to note in the above output:</p>
+<ul>
+<li>The <strong>median income</strong> is scaled to represent ten thousand dollars per measured unit (i.e. a value of 1 means \$10k).</li>
+<li>House prices seems to be capped at <strong>\$500k</strong>. This perhaps indicates the data is not that clean.</li>
+<li>As you notice, many histograms are not balanced. This is indicated when the histogram extends more to the right or left of the median. Machine learning algorithms find it difficult to learn on "tail-heavy" distributions as the "thin extensions" can be anomalies that offset the model. The techniques to transform such distribution in data is discussed later.</li>
+</ul>
+<p><strong>7)</strong> The housing data contains geographical location information (latitude and longitude) of each district which is best visualized through a scatter plot. Draw a scatter plot using the <strong>plot()</strong> function of the dataframe.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;latitude&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>8)</strong> Notice that the above plot has the shape of the State of California, which is what the latitudes/longitudes are really for. Let's add some additional details to make the plot more descriptive.</p>
+<ul>
+<li>Use the transparency marker <strong>alpha=0.2</strong> to emulate the density.</li>
+<li>Let the radius of the circle represent the district population (using the option <strong>s</strong>).</li>
+<li>Let the color of the circle vary by median house prices (using option <strong>c</strong>).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+             <span class="n">s</span><span class="o">=</span><span class="n">housing</span><span class="p">[</span><span class="s2">&quot;population&quot;</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span>
+            <span class="n">c</span><span class="o">=</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;jet&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="STEP-2:-Load-the-Dataset-into-the-Oracle-Database"><span style="color:teal">STEP 2: Load the Dataset into the Oracle Database</span><a class="anchor-link" href="#STEP-2:-Load-the-Dataset-into-the-Oracle-Database">&#182;</a></h2><hr>
+<p>The <strong>housing</strong> Pandas DataFrame loaded earlier will now be loaded into the Oracle Database as a table in a predefined Oracle Schema. As explained in an earlier lab, <strong>Oracle Machine Learning for Python (OML4Py)</strong> allows Python to push a Pandas DataFrame to the Oracle Database, and reference it as an OML DataFrame object, which is a in-memory Python object pointing to the database table, very similar to the Pandas DataFrame.</p>
+<p>Follow the below steps to load the dataframe into Oracle.</p>
+<p><strong>1)</strong> To use OML4Py functions you would first import the <strong>oml</strong> module and then connect to the Oracle Database instance using <strong>oml.connect()</strong>. The oml.connect method establishes a connection to the user’s schema in an Oracle Database instance.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">oml</span>
+<span class="n">oml</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;labuser&quot;</span><span class="p">,</span><span class="s2">&quot;labuser&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1521</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;pdb&quot;</span><span class="p">)</span>
+
 <span class="n">oml</span><span class="o">.</span><span class="n">isconnected</span><span class="p">()</span>
 </pre></div>
 
@@ -13175,7 +13344,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>3)</strong> Load the data in Oracle into a table named <strong>BACKORDERS</strong>.</p>
+<p><strong>DO NOT PROCEED</strong> further until you see the output from <strong>oml.isconnected()</strong> returned as "<strong>True</strong>".</p>
+<p><strong>2)</strong> Next, you will load the Pandas DataFrame into the Oracle database using the <strong>oml.create()</strong> method. The oml.create method creates a persistent table in the Oracle Database, versus <strong>oml.push()</strong> which creates a Temporary Table in the Database.</p>
+<p>The table in the Oracle Database will be referenced in Python as an <strong>oml.DataFrame</strong> object, which is a pointer to the Database table that can be manipulated in Python as a DataFrame.</p>
+<blockquote><p><strong>Note</strong> that OML4Py requires that <strong>NaN</strong> ("Not a Number") in Pandas DataFrame be set to <strong>NULL</strong>s prior to loading the dataframe in Oracle. Alternatively, you can use <strong>oranumber=False</strong> to preserve <strong>NaN</strong> values in the Oracle Table, as shown below.</p>
+</blockquote>
 
 </div>
 </div>
@@ -13186,10 +13359,11 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;BACKORDERS&quot;</span><span class="p">)</span>
+    <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;HOUSING&quot;</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="k">pass</span>
-<span class="n">oml_df</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;BACKORDERS&quot;</span><span class="p">)</span>
+
+<span class="n">HOUSING</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">housing</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;HOUSING&quot;</span><span class="p">,</span> <span class="n">oranumber</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13200,7 +13374,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>4)</strong> Get to know the data - check the feature columns and target. Note that there are <strong>21</strong> features in this dataset, the labled target being <strong>went_on_backorder</strong>. Also note that not all features may be required for prediction as some may not be correlated with the target.</p>
+<p><strong>3)</strong> Get the dimensions of the OML DataFrame using the <strong>shape</strong> method. As discussed in the earlier labs, most Python functions are overloaded in the <strong>oml</strong> class to transparently work on OML DataFrame objects.</p>
 
 </div>
 </div>
@@ -13210,7 +13384,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_df</span><span class="o">.</span><span class="n">columns</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape:&quot;</span><span class="p">,</span><span class="n">HOUSING</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13221,7 +13395,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>5)</strong> Describe the data to get descriptive statistics on the columns in the dataset, including data distribution, std deviation, min, max and counts.</p>
+<p><strong>4)</strong> Double check the column names of the attributes in OML DataFrame.</p>
 
 </div>
 </div>
@@ -13231,7 +13405,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 
     </div>
@@ -13242,9 +13416,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="STEP-2:-Get-Baseline-Performance-with-All-Features"><span style="color:teal">STEP 2: Get Baseline Performance with All Features</span><a class="anchor-link" href="#STEP-2:-Get-Baseline-Performance-with-All-Features">&#182;</a></h3><p>Let's first check the baseline performance of <strong>SVM</strong> classification using all the features in the dataset.</p>
-<p><strong>1)</strong> Split the dataset into <strong>train/test</strong> with a ratio of <strong>80/20</strong> using stratified sampling, in which all columns will be used to preserve data distribution after the splits.</p>
-<p>Also, separate the predictors and targets for testing and training into <strong>train_x</strong>, <strong>train_y</strong> and <strong>test_x</strong>, <strong>test_y</strong>, respectively.</p>
+<p><strong>5)</strong> Use the overloaded <strong>head()</strong> method on the OML DataFrame to get the first few rows from the database. Note that this method will execute a SQL statement in the database and display the results in the current Python session - keeping all this work transparent and under the covers.</p>
 
 </div>
 </div>
@@ -13254,12 +13426,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split the data set into train and test. </span>
-<span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">oml_df</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ratio</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">strata_cols</span><span class="o">=</span><span class="n">oml_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> 
-
-<span class="c1"># Separate the predictors and targets for test and train.</span>
-<span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">),</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">]</span>
-<span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">),</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13270,7 +13437,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>2)</strong> Build the SVM prediction model using <strong>oml.svm</strong> on training data. Also capture the model build time for later comparisons.</p>
+<p><strong>6)</strong> Use the <strong>describe()</strong> method to get statistical details like percentile, mean, stddev, etc. on the OML DataFrame, as you did on the Pandas DataFrame earlier. Use <strong>include=all</strong> to get info on non-numeric columns as well.</p>
 
 </div>
 </div>
@@ -13280,12 +13447,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="n">mod</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">svm</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span> 
-
-<span class="n">orig_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_time</span>
-<span class="n">orig_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13296,7 +13458,19 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>3)</strong> Get the SVM model's <strong>Accuracy</strong> metric on the test set using the <strong>score</strong> function. The score function returns the mean accuracy for classification algorithms.</p>
+<h2 id="STEP-3:-Build-Your-First-Predictive-Model"><span style="color:teal">STEP 3: Build Your First Predictive Model</span><a class="anchor-link" href="#STEP-3:-Build-Your-First-Predictive-Model">&#182;</a></h2><hr>
+<p>Ideally at this stage, you would need to prepare the dataset before trying out any ML models. This is to ensure better prediction accuracy. But let's quickly get a sense of the accuracy <strong>out-of-the-box</strong> and learn on the data in its current state.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.1.-Prepare-Train/Test-Datasets"><span style="color:teal">3.1. Prepare Train/Test Datasets</span><a class="anchor-link" href="#3.1.-Prepare-Train/Test-Datasets">&#182;</a></h3><p>A simplistic approach for splitting input datasets is to split it randomly; for example, setting aside 80% for training and 20% for testing. The <strong>split()</strong> function can be used for this as it can divide the OML DataFrame into mutiple sets, based on random sampling.</p>
+<blockquote><p>A more sophisticated split, such as with stratified sampling, can be used to ensure adequate representation of all predictors in the training/testing set instead of pure random (this is duscussed later).</p>
+</blockquote>
+<p><strong>1)</strong> Use the <strong>Split()</strong> function to split the dataset into two sets, with 80-20 distribution.</p>
 
 </div>
 </div>
@@ -13306,7 +13480,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">orig_accuracy</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">,</span> <span class="n">TEST</span> <span class="o">=</span> <span class="n">HOUSING</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ratio</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">),</span> <span class="n">use_hash</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13317,7 +13491,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>4)</strong> Print the model training statistics, including accuracy and build time.</p>
+<p><strong>2)</strong> After the split, <strong>TRAIN</strong> contains the training data (80% of total) and <strong>TEST</strong> contains the testing data (20% of total). Validate that the frame was split at 80-20.</p>
 
 </div>
 </div>
@@ -13327,12 +13501,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Metrics WITHOUT Automatic Feature Selection&quot;</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;-------------------------------------------&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Total features trained: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">orig_features</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model training time: </span><span class="si">%d</span><span class="s2"> secs&quot;</span> <span class="o">%</span> <span class="n">orig_time</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model accuracy: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">orig_accuracy</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original Size :&quot;</span><span class="p">,</span> <span class="n">HOUSING</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Train Size    :&quot;</span><span class="p">,</span> <span class="n">TRAIN</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test Size     :&quot;</span><span class="p">,</span> <span class="n">TEST</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13343,16 +13514,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="STEP-3:-Using-Automatic-Feature-Selection"><span style="color:teal">STEP 3: Using Automatic Feature Selection</span><a class="anchor-link" href="#STEP-3:-Using-Automatic-Feature-Selection">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Automatic Feature Selection evaluates the performance of various features in the dataset, identifying the best features or feature subsets that reduce the model training time without compromising on model performance.</p>
-<p>Oracle has advanced meta-learning techniques that quickly prunes the search space by applying several ranking algorithms given a training dataset and the ML algorithm, which enables even a novice user to create hundreds of relevant features very quickly from the dataset.</p>
-<p><strong>1)</strong> Automatic Feature Selection is initialized using <strong>automl.FeatureSelection</strong> class. You can specify the <strong>score_metric</strong>, which for classification is the prediction <strong>Accuracy</strong>. You can also use the parallel clause to specify database parallelism to speed-up processing.</p>
+<p><strong>3)</strong> Separate the target attribute from the predictors. You are going to use all attributes except <strong>median_house_value</strong> as the predictors, whereas the target is <strong>median_house_value</strong>.</p>
 
 </div>
 </div>
@@ -13362,7 +13524,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">automl</span><span class="o">.</span><span class="n">FeatureSelection</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_x</span> <span class="o">=</span> <span class="n">TRAIN</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">)</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -13373,7 +13536,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>2)</strong> Get the reduced feature subset on the training set by invoking the <strong>reduce()</strong> method. Note that you specify the ML algorithm for classification which in this case is <strong>svm_linear</strong>.</p>
+<p><strong>4)</strong> Validate that the target and predictors got properly separated by sampling the first few rows in <strong>train_x</strong> and <strong>train_y</strong>.</p>
 
 </div>
 </div>
@@ -13383,12 +13546,20 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_x</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
 
-<span class="n">subset</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;svm_linear&#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+    </div>
+</div>
+</div>
 
-<span class="n">automl_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-<span class="n">reduced_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_y</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13399,7 +13570,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>3)</strong> Train a SVM model using the reduced feature set discovered by automatic feature selection.</p>
+<h3 id="3.2.-Build-a-Predictive-Model"><span style="color:teal">3.2. Build a Predictive Model</span><a class="anchor-link" href="#3.2.-Build-a-Predictive-Model">&#182;</a></h3><p>Build a <strong>Generalized Linear Regression (GLM)</strong> model using the algorithms powered by <strong>Oracle Advanced Analytics</strong> option of the Oracle Database.</p>
+<p>The GLM algorithms are executed in OML4Py using <strong>oml.glm()</strong>. This class will execute the appropriate algorithms on Oracle based on the <strong>settings</strong> (hyperparameters) provided. The settings are supplied as key-value pairs. Some settings are just general, whereas some are specific to a model or the algorithm. For a complete list of settings, refer to the product documentation.</p>
+<p><strong>1)</strong> Set the <strong>GLMS_SOLVER</strong> to <strong>dbms_data_mining.GLMS_SOLVER_QR</strong> for GLM as a key-value pair. Also let <strong>oml.glm</strong> know that it should focus on <strong>regression</strong> (on of the only two values you can specify, the other being <strong>classification</strong>).</p>
 
 </div>
 </div>
@@ -13409,15 +13582,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="p">[:,</span> <span class="n">subset</span><span class="p">]</span>
-<span class="n">new_test_x</span> <span class="o">=</span> <span class="n">test_x</span><span class="p">[:,</span> <span class="n">subset</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Specify settings for GLM</span>
+<span class="n">setting</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GLMS_SOLVER&#39;</span><span class="p">:</span> <span class="s1">&#39;dbms_data_mining.GLMS_SOLVER_QR&#39;</span><span class="p">}</span>
 
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="n">mod</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">svm</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">new_train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span> 
-
-<span class="n">reduced_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-<span class="n">reduced_accuracy</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">new_test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">)</span>
+<span class="c1"># Create an oml GLM model object</span>
+<span class="n">glm_mod</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="s2">&quot;regression&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">setting</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13428,7 +13597,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>4)</strong> Print the model accuracy and training time, along with the gain in feature reduction.</p>
+<p><strong>2)</strong> Run the algorithm to generate the model using the <strong>fit()</strong> method. Print the model details to understand the model's key statistics, including the <strong>Root Mean Square Error</strong> and <strong>R-Squared</strong>, which it computed on the training set.</p>
+<blockquote><p><strong>Root Mean Square Error (RMSE)</strong>: RMSE is a measure of the differences between values predicted by a model and the values observed. In mathematical terms, RMSE is the square root of the arithmetic mean of the squares of a set of values (basically, actual vs predicted), used as a measure of the typical magnitude of a set of numbers, regardless of their sign. A good model should have a low RMSE. But at the same time, a model with very low RMSE has the potential to overfit.</p>
+<p><strong>R-Squared (R^2)</strong>: R^2 is a statistical measure that represents the goodness of fit of a regression model. The ideal value for R^2 is 1. The closer the value of R^2 to 1, the better the model is fitted. So, if the R^2 of a model is 0.50, then approximately half of the observed variation can be explained by the model's inputs.</p>
+</blockquote>
 
 </div>
 </div>
@@ -13438,11 +13610,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Metrics WITH Automatic Feature Selection&quot;</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;----------------------------------------&quot;</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Feature reduction obtained: </span><span class="si">%d</span><span class="s2">x&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">orig_features</span><span class="o">/</span><span class="n">reduced_features</span><span class="p">))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model training time: </span><span class="si">%d</span><span class="s2"> secs (gain </span><span class="si">%.2f%%</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reduced_time</span><span class="p">,</span> <span class="p">(</span><span class="n">reduced_time</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">orig_time</span><span class="p">)))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model accuracy: </span><span class="si">%.4f</span><span class="s2"> (original </span><span class="si">%.4f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reduced_accuracy</span><span class="p">,</span> <span class="n">orig_accuracy</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit the GLM model according to training data and parameter settings. </span>
+<span class="n">glm_mod</span> <span class="o">=</span> <span class="n">glm_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+
+<span class="c1"># Show the model details.</span>
+<span class="n">glm_mod</span>
 </pre></div>
 
     </div>
@@ -13453,7 +13625,361 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>5)</strong> Graph the performance metrics for visual comparison. Notice that with Automatic Feature Selection, the training time is reduced without compromising on accuracy.</p>
+<p><strong>3)</strong> Locate the values of <strong>ROOT_MEAN_SQ</strong> and <strong>R_SQ</strong> from the above output, which is the <strong>RMSE</strong> and <strong>R^2</strong> on the <strong>training set</strong>. The RMSE should be approximately around <strong>69000</strong>, and <strong>R^2</strong> about <strong>0.64</strong>. Note this down as this is the baseline performance of the model.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.3.-Predict-Using-the-Model-and-Calculate-Accuracy"><span style="color:teal">3.3. Predict Using the Model and Calculate Accuracy</span><a class="anchor-link" href="#3.3.-Predict-Using-the-Model-and-Calculate-Accuracy">&#182;</a></h3><p><strong>1)</strong> Remember that 20% of the dataset was saved for testing. Let's now use it to predict the house prices and then calculate RMSE on the test dataset.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Use the model to make predictions on the test data. </span>
+<span class="n">res_glm</span> <span class="o">=</span> <span class="n">glm_mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">TEST</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">),</span> <span class="n">supplemental_cols</span> <span class="o">=</span> <span class="n">TEST</span><span class="p">[:,[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Calculcate <strong>RMSE</strong> manually on the prediction results on the testing test. Note the RMSE on the testing set is similar to the one observed on the training set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="n">res_glm</span><span class="p">[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">res_glm</span><span class="p">[</span><span class="s1">&#39;PREDICTION&#39;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">**</span> <span class="o">.</span><span class="mi">5</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Calculate the <strong>R^2</strong> on the testing set using the <strong>score()</strong> method. Also note that <strong>R^2</strong> on the testing set is also similar to the one obtained on the training set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm_mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">TEST</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">),</span> <span class="n">TEST</span><span class="p">[:,[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Congratulations!</strong> You have successfully created and predicted using your first model.</p>
+<p>Now you have some idea on the baseline performance of your very first GLM model. But as mentioned earlier, you would need to normalize and preprare the dataset in order to better the prediction accuracy, as R^2 of 0.64 is not that great for practical purposes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="STEP-4:-Preparing-the-Dataset-for-ML"><span style="color:teal">STEP 4: Preparing the Dataset for ML</span><a class="anchor-link" href="#STEP-4:-Preparing-the-Dataset-for-ML">&#182;</a></h2><hr>
+<p>Machine Learning depends heavily on data; The algorithms are only as good as the data they learn on. But it is well-known that most datasets are inherently flawed. Bad data not only makes the algorithms useless but may even cause harm by predicting wrongfully. Let's apply some of the well known methods to cleanse our CA Housing dataset.</p>
+<blockquote><p><strong>Note:</strong> ML Dataset preparation should also encompass the mechanisms for collecting the "right" data, which is out-of-scope for this lab. It is estimated that almost half of the work in ML is in devising processes to collect and cleanse datasets.</p>
+</blockquote>
+<h3 id="4.1.-Discovering-Correlations"><span style="color:teal">4.1. Discovering Correlations</span><a class="anchor-link" href="#4.1.-Discovering-Correlations">&#182;</a></h3><p>Data correlation in ML is the relationship among the various features or the features with the target variable. If you cannot find any correlation in the dataset then regression is not going help tackle your ML problem.</p>
+<p><strong>1)</strong> Let's use the built-in <strong>corr()</strong> method of the OML dataframe to investigate correlations.</p>
+<p>We are interested in finding correlations only with the target attribute (<strong>median_house_value</strong>). The correlation can be positive (an increase in a feature value increases the value of the target variable) or negative (increase in a feature value decreases the value of the target variable).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">HOUSING</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">corr_matrix</span><span class="p">[</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the above results, it is evident that <strong>median_income</strong> is highly correlated to our target variable <strong>median_house_value</strong>. It also shows that other predictors are not that deeply correlated.</p>
+<p><strong>2)</strong> Correlations can also be visualized graphically. Using Pandas, we can create scatter matrices to visualize trends in data.</p>
+<p>In this step, you will pull the data to a local Pandas DataFrame from the OML Data Frame using the <strong>pull()</strong> method and create a <strong>scatter matrix</strong> plot. The pull method creates a local Python object containing a copy of the data from the database that was referenced by the oml object.</p>
+<blockquote><p><strong>Note:</strong> The reason for pulling the data from the database into a local Pandas dataframe is mainly to demonstrate the <strong>pull()</strong> method of OML4Py.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing_local</span> <span class="o">=</span> <span class="n">HOUSING</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="k">import</span> <span class="n">scatter_matrix</span>
+    
+<span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">,</span> <span class="s2">&quot;median_income&quot;</span><span class="p">,</span> <span class="s2">&quot;total_rooms&quot;</span><span class="p">,</span> <span class="s2">&quot;housing_median_age&quot;</span><span class="p">]</span>
+<span class="n">scatter_matrix</span><span class="p">(</span><span class="n">housing_local</span><span class="p">[</span><span class="n">attributes</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> From the above plots, notice that <strong>median_house_value</strong> to <strong>median_income</strong> plot seems to be the most correlated (second from right on the top row) - thereby confirming the results of <strong>corr()</strong> earlier.</p>
+<p>Zoom into this correlation and scatter-plot the relationship using <strong>plot()</strong> and <strong>kind="scatter"</strong>. The plot confirms that the correlation is indeed strong. Also, you can clearly see the house value cap of about <strong>\$500k</strong> which is evident from the horizontal line on the top (remember we saw this earlier as well).</p>
+<p>In a real scenario you would want to either remove those records or re-capture real data via some other means in order to get accurate predictions. We will take care of this in a later step.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing_local</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;median_income&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.2.-Combining-Attributes"><span style="color:teal">4.2. Combining Attributes</span><a class="anchor-link" href="#4.2.-Combining-Attributes">&#182;</a></h3><p>The dataset contains an attribute called <strong>total_rooms</strong> which is summarized at the district level. So are the attributes <strong>total_bedrooms</strong> and <strong>population</strong>. These attributes by themselves don't say much about other predictors or the target variable, and this was evident by the <strong>corr()</strong> function earlier.</p>
+<p>It is always good to experiment with different combinations or derivatives of the predictors that makes better sense on the data.</p>
+<p><strong>1)</strong> Let's add three new attributes - <strong>total_rooms per households</strong>, <strong>total_bedrooms per rooms</strong>, and <strong>total population per household</strong>, as they will better relate to the target variable.</p>
+<p>Use SQL to add the attributes (columns) directly to the HOUSING table. This is possible in Python via <strong>oml.cursor()</strong> and the <strong>execute</strong> method. These attributes will be populated based on the exising attributes as folows:</p>
+<ul>
+<li>rooms_per_household = total_rooms/households</li>
+<li>bedrooms_per_rooms = total_bedrooms/total_rooms</li>
+<li>population_per_household = population/households</li>
+</ul>
+<blockquote><p><strong>oml.cursor()</strong> function can create a <strong>cx_Oracle</strong> cursor object for the current database connection. You can use the cursor to execute queries against the database.</p>
+<p><strong>cx_Oracle</strong> is a Python extension module that enables access to Oracle Database - OML4Py uses cx_Oracle under the covers.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cr</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ALTER TABLE housing DROP (</span><span class="se">\&quot;</span><span class="s2">rooms_per_household</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">bedrooms_per_rooms</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">population_per_household</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ALTER TABLE HOUSING add (</span><span class="se">\&quot;</span><span class="s2">rooms_per_household</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE, </span><span class="se">\&quot;</span><span class="s2">bedrooms_per_rooms</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE, </span><span class="se">\&quot;</span><span class="s2">population_per_household</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE)&quot;</span><span class="p">)</span> 
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE housing SET </span><span class="se">\&quot;</span><span class="s2">population_per_household</span><span class="se">\&quot;</span><span class="s2"> = </span><span class="se">\&quot;</span><span class="s2">population</span><span class="se">\&quot;</span><span class="s2">/</span><span class="se">\&quot;</span><span class="s2">households</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">rooms_per_household</span><span class="se">\&quot;</span><span class="s2"> = </span><span class="se">\&quot;</span><span class="s2">total_rooms</span><span class="se">\&quot;</span><span class="s2">/</span><span class="se">\&quot;</span><span class="s2">households</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">bedrooms_per_rooms</span><span class="se">\&quot;</span><span class="s2"> = </span><span class="se">\&quot;</span><span class="s2">total_bedrooms</span><span class="se">\&quot;</span><span class="s2">/</span><span class="se">\&quot;</span><span class="s2">total_rooms</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;COMMIT&quot;</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Using <strong>oml.sync()</strong>, synchronize the metadata changes just made to the database table (<strong>HOUSING</strong>) with the Python oml object that was pointing to it (also named <strong>HOUSING</strong>).</p>
+<p>This step is important as the OML object metadata does not automatically sync up when the underlying database object is changed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">=</span><span class="n">oml</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;HOUSING&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Check the correlations on <strong>median_house_value</strong> one more time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">HOUSING</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">corr_matrix</span><span class="p">[</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> You now see some interesting correlations. Looks like the new attribute <strong>bedrooms_per_rooms</strong> is better correlated with the target than <strong>total_bedrooms</strong>. Seems like the home buyers prefer more rooms to be complete bedrooms and are willing to pay a higher price for it.</p>
+<p>Also, the number of <strong>rooms_per_household</strong> is more correlated with the target when compared to <strong>total_rooms</strong>. This means a large family is willing to pay a higher price for a bigger house.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.3.-Encoding-Text-Attributes"><span style="color:teal">4.3. Encoding Text Attributes</span><a class="anchor-link" href="#4.3.-Encoding-Text-Attributes">&#182;</a></h3><p>The <strong>ocean_proximity</strong> attribute contains categorical data of type <strong>text</strong> which needs to be encoded to numeric, this is because most ML algorithms only work with numbers. Categorical data are variables that contain label values rather than numeric values where the number of possible values are often limited to a fixed set.</p>
+<p>There are a few methods for encoding text to numeric for categorical attributes, the two most common being <strong>ordinal encoding</strong> and <strong>one-hot encoding</strong>.</p>
+<p><strong>Ordinal Encoding</strong>: Encode the string labels of categories to integer values, one unique value per category and replace the exiting attribute or create a new attribute.</p>
+<p><strong>One-hot Encoding</strong>: Create a new binary attribute per category. The new attribute for the category will be a '1 (or hot)' when the original row contains the category value. For example, if you have categorical data for colors with three possible colors (e.g. red, blue, green) allowed in an attribute named <strong>color</strong>, you would create 3 new attributes, one for each color, and the value for the new attribute will be '1' for the row where the color existed in original <strong>color</strong> attribute.</p>
+<p><strong>1)</strong> If we zoom in on the feature "<strong>ocean_proximity</strong>", we can identify 5 categories, namely <strong>1H OCEAN</strong>, <strong>INLAND</strong>, <strong>NEAR OCEAN</strong>, <strong>NEAR BAY</strong> and <strong>ISLAND</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;ocean_proximity&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Add five (5) new attributes of type numeric to the <strong>HOUSING</strong> table, with each attribute representing one of the above categories of <strong>ocean_proximity</strong>. Basically, add new attribute (column) for "<strong>NEAR OCEAN</strong>", an attribute for "<strong>INLAND</strong>" and so on.</p>
+<p>We will use <strong>one-hot encoding</strong> for <strong>ocean_proximity</strong>. The attribute will be initialized to "1" if the <strong>ocean_proximity</strong> contains the value that the attribute represents, or "0" if not. For example, when <strong>ocean_proximity</strong> is "<strong>NEAR OCEAN</strong>" for a particular row, the attribute representing <strong>NEAR OCEAN</strong> (in this case <strong>cat_near_ocean</strong>) will be set to "1", otherwise it will be set to "0".</p>
+<p><strong>3)</strong> Run the following code that uses <strong>oml.cursor()</strong> to one-hot encode <strong>ocean_proximity</strong> into 5 new columns (<strong>cat_near_ocean</strong>, <strong>cat_inland</strong>, <strong>cat_island</strong>, <strong>cat_near_bay</strong>, and <strong>cat_1h_ocean</strong>)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cr</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">drop_sql</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;ALTER TABLE housing DROP (</span><span class="se">\&quot;</span><span class="s2">cat_1h_ocean</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">cat_near_ocean</span><span class="se">\&quot;</span><span class="s2">,&quot;</span>
+           <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_inland</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">cat_island</span><span class="se">\&quot;</span><span class="s2">, </span><span class="se">\&quot;</span><span class="s2">cat_near_bay</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="n">add_sql</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;ALTER TABLE HOUSING add (</span><span class="se">\&quot;</span><span class="s2">cat_1h_ocean</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE,&quot;</span>
+           <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_near_ocean</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE, </span><span class="se">\&quot;</span><span class="s2">cat_inland</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE,&quot;</span>
+           <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_island</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE, </span><span class="se">\&quot;</span><span class="s2">cat_near_bay</span><span class="se">\&quot;</span><span class="s2"> BINARY_DOUBLE)&quot;</span><span class="p">)</span>
+
+<span class="n">update_sql</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;UPDATE housing &quot;</span>
+            <span class="s2">&quot;SET </span><span class="se">\&quot;</span><span class="s2">cat_near_ocean</span><span class="se">\&quot;</span><span class="s2"> = (CASE </span><span class="se">\&quot;</span><span class="s2">ocean_proximity</span><span class="se">\&quot;</span><span class="s2"> WHEN &#39;NEAR OCEAN&#39; THEN 1 ELSE 0 END),&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_inland</span><span class="se">\&quot;</span><span class="s2"> = (CASE </span><span class="se">\&quot;</span><span class="s2">ocean_proximity</span><span class="se">\&quot;</span><span class="s2"> WHEN &#39;INLAND&#39; THEN 1 ELSE 0 END),&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_island</span><span class="se">\&quot;</span><span class="s2"> = (CASE </span><span class="se">\&quot;</span><span class="s2">ocean_proximity</span><span class="se">\&quot;</span><span class="s2"> WHEN &#39;ISLAND&#39; THEN 1 ELSE 0 END),&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_near_bay</span><span class="se">\&quot;</span><span class="s2"> = (CASE </span><span class="se">\&quot;</span><span class="s2">ocean_proximity</span><span class="se">\&quot;</span><span class="s2"> WHEN &#39;NEAR BAY&#39; THEN 1 ELSE 0 END),&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">cat_1h_ocean</span><span class="se">\&quot;</span><span class="s2"> = (CASE </span><span class="se">\&quot;</span><span class="s2">ocean_proximity</span><span class="se">\&quot;</span><span class="s2"> WHEN &#39;&lt;1H OCEAN&#39; THEN 1 ELSE 0 END)&quot;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">drop_sql</span><span class="p">)</span>         
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">add_sql</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">update_sql</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;COMMIT&quot;</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> Using <strong>oml.sync()</strong>, synchronize the newly added columns with the OML DataFrame object.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">=</span><span class="n">oml</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;HOUSING&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.4.-Create-Train-and-Test-Datasets"><span style="color:teal">4.4. Create Train and Test Datasets</span><a class="anchor-link" href="#4.4.-Create-Train-and-Test-Datasets">&#182;</a></h3><p>In Step 3 the split was based on random sampling. This was probably fine if the dataset was large, but for smaller datasets there is a risk of introducing bias in the samples. This is because the split (may) unknowingly favor one predictor over another as it does not take into account the inter-predictor relationships.</p>
+<p><strong>Stratified Sampling</strong> is a technique that samples the data in a way that each sample has a good representation of the whole dataset. It forces each sample to have at least m instances of each class. This approach ensures that one class of data is not overrepresented especially when the target variable is unbalanced.</p>
+<p>For stratified sampling to be effective, we need to identify the predictors that highly correlate with the target so we can represent it in the samples without bias. If you remember, we earlier identified that <strong>median_income</strong> had the most influence on <strong>median_house_values</strong>. We therefore need to ensure that the data distribution (histogram) of <strong>median_income</strong> gets preserved after the split in the training and testing sets.</p>
+<p><strong>1)</strong> Using a histogram plot, capture the data distribution of <strong>median_income</strong> in the dataset prior to the split. The below plot will be referenced later for validation after the stratified split is performed.</p>
+<p>Use <strong>oml.graphics</strong> to plot the histogram (<strong>oml.graphics</strong> can also plot a <strong>boxplot</strong>).</p>
 
 </div>
 </div>
@@ -13464,39 +13990,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># Model Creation Time</span>
-<span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
-<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
-<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">orig_time</span><span class="p">,</span> <span class="n">reduced_time</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Model Creation Time (secs)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># Model Accuracy</span>
-<span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
-<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
-<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">orig_accuracy</span><span class="p">,</span> <span class="n">reduced_accuracy</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Accuracy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># Model Feature Reduction</span>
-<span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
-<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
-<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">orig_features</span><span class="p">,</span> <span class="n">reduced_features</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;# of Features&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Feature Reduction&#39;</span><span class="p">)</span>
+<span class="n">oml</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">HOUSING</span><span class="p">[</span><span class="s1">&#39;median_income&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -13508,32 +14002,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.2.-Automatic-Model-Selection"><span style="color:teal">5.2. Automatic Model Selection</span><a class="anchor-link" href="#5.2.-Automatic-Model-Selection">&#182;</a></h2><hr>
-<p>Selecting the best data mining algorithm for a dataset is not trivial as no single algorithm works best for all ML problems. Moreover, some algorithms favor a different way of engineering the features which further complicates the task especially when the features may need to be re-engineered for each algorithm.</p>
-<p>Oracle Machine Learning's <strong>Automatic Model Selection</strong> comes to the rescue. With Automatic Model Selection, the best model from a set of supported machine learning models is selected just by using the characteristics of the dataset and the ML task.</p>
-<p>This capability is achieved through Oracle's advanced meta-learning intelligence which suggests the best model for a dataset by evaluating only a few models. This is possible through the knowledge base that Oracle has built by learning the metadata from a repertoire of datasets.</p>
-<blockquote><p>OML4Py <strong>Automatic Model Selection</strong> currently supports classification algorithms.</p>
+<p><strong>2)</strong> Since the <strong>median_income</strong> is a continuous attribute it cannot be directly used as an attribute for stratified stampling. However, a new attribute can be "derived" from median_income that is discrete - for example an income category that groups the median income into buckets with a low and a high range. Looking closely at the histogram above, most median incomes are clustered mainly between 1.5 and 6 (i.e. \$15k - \\$60k), while a few values go beyond 6.</p>
+<blockquote><p>The key to coming up with a successful strata is: 1) There should not be too many stratas (or groups), and 2) Each strata should have suffcient number of samples compared within. We can safely create an income_category attribute with 5 categories (labeled from 1-5), category 1 ranging from 0 to 1.5, category 2 from 1.5 to 3, and so on.</p>
 </blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>1)</strong> Use the <strong>automl.ModelSelection</strong> class of OML4Py to invoke automatic model selection capabilities.</p>
-<p>With oml.automl.ModelSelection class, you specify a dataset and the number of algorithms you like to tune. The resultset returned is a ranked list of models that are predicted to perform the best on the given dataset.</p>
-<p>For information on the parameters and methods of the class, invoke help(oml.automl.ModelSelection).</p>
-<blockquote><p>The following metrics are supported for measuring binary Classification algorithm performance in automatic model selection: <strong>accuracy</strong>, <strong>f1</strong>, <strong>precision</strong>, <strong>recall</strong>, <strong>roc_auc</strong>, <strong>f1_micro</strong>, <strong>f1_macro</strong>, <strong>f1_weighted</strong>, <strong>recall_micro</strong>, <strong>recall_weighted</strong>, <strong>precision_micro</strong>, <strong>precision_macro</strong> and <strong>precision_weighted</strong></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>2)</strong> Create an automatic model selection object with <strong>accuracy</strong> as the score metric, which is the preferred metric to measure classification accuracy.</p>
+<p><strong>3)</strong> Add <strong>INCOME_CAT</strong> attribute to the original dataset which was loaded in the Database. Use SQL and run it directly in Python using <strong>oml.cursor()</strong> and the <strong>execute</strong> method, as follows:</p>
 
 </div>
 </div>
@@ -13543,7 +14015,17 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ms</span> <span class="o">=</span> <span class="n">automl</span><span class="o">.</span><span class="n">ModelSelection</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cr</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ALTER TABLE housing DROP (income_cat)&quot;</span><span class="p">)</span> 
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ALTER TABLE HOUSING add (income_cat BINARY_DOUBLE)&quot;</span><span class="p">)</span> 
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE housing SET income_cat = (CASE WHEN CEIL(</span><span class="se">\&quot;</span><span class="s2">median_income</span><span class="se">\&quot;</span><span class="s2">/1.5) &gt; 5 THEN 5 ELSE CEIL(</span><span class="se">\&quot;</span><span class="s2">median_income</span><span class="se">\&quot;</span><span class="s2">/1.5) END)&quot;</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;COMMIT&quot;</span><span class="p">)</span>
+<span class="n">cr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13554,12 +14036,146 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>3)</strong> Run the model selection using the <strong>select()</strong> method. The <strong>select()</strong> method accepts the following parameters.</p>
+<p><strong>4)</strong> Using <strong>oml.sync()</strong>, synchronize the metadata changes just made on the database with the Python oml object.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HOUSING</span><span class="o">=</span><span class="n">oml</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;HOUSING&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> Using <strong>oml.graphics</strong>, plot a histogram for <strong>INCOME_CAT</strong> and observe the five categories (or buckets) created and the counts per category.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">HOUSING</span><span class="p">[</span><span class="s2">&quot;INCOME_CAT&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+                  <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>6)</strong> Next, split the dataframe into training and testing sets. Use the same <strong>split()</strong> function that was used earlier to split the datasets using random sampling, but this time specify <strong>strata_cols</strong> to indicate that <strong>INCOME_CAT</strong> needs to be included for splitting with stratified sampling.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">,</span> <span class="n">TEST</span> <span class="o">=</span> <span class="n">HOUSING</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ratio</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">),</span> <span class="n">strata_cols</span> <span class="o">=</span> <span class="s2">&quot;INCOME_CAT&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>7)</strong> After the split, <strong>TRAIN</strong> contains the training data (which is 80% of total) and <strong>TEST</strong> contains the testing data (20% of total).</p>
+<p>Validate that the frame was split at 80-20 for training and testing and note that the training set contains roughly <strong>16k</strong> rows and the testing set <strong>4k</strong> rows.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">split</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="p">(</span><span class="n">TRAIN</span><span class="p">,</span> <span class="n">TEST</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>8)</strong> Next, plot a historgram for <strong>median_income</strong> from the training set (<strong>TRAIN</strong>) and double check whether the disribution follows a similar pattern for <strong>median_income</strong> as it existed before the split (step <strong>(1)</strong> of this section).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">oml</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;median_income&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>9)</strong> Lastly, plot the historgram for <strong>median_income</strong> from the testing set (<strong>TEST</strong>) and (again) compare the shape to the histogram for <strong>median_income</strong> taken over the whole dataset in step <strong>(1)</strong> of this section. Do you see any similarities?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">oml</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">TEST</span><span class="p">[</span><span class="s1">&#39;median_income&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.5.-Data-Cleansing"><span style="color:teal">4.5. Data Cleansing</span><a class="anchor-link" href="#4.5.-Data-Cleansing">&#182;</a></h3><p>If you remember there were some missing values for <strong>total_bedrooms</strong> that we found in one of the earlier steps but ignored. If we were to capture the missing information somehow (or remove them from the dataset), it will benefit the ML algorithms as most algorithms are not designed to work with missing values.</p>
+<p>The process of filling missing values is called <strong>Imputation</strong>. There are a few ways to accomplish this:</p>
 <ul>
-<li><strong>k</strong>: Returns the top k best models. Use k=1 to return only the top model.</li>
-<li><strong>tune</strong>: When <strong>True</strong> (default), the select() method returns the best model. When <strong>False</strong>, the method returns a list of top <strong>k</strong> models and their predicted scores.</li>
-<li><strong>solver</strong>: When set to <strong>exhaustive</strong>, the model selection process thoroughly searches the model space and identifies the best model. When <strong>fast</strong>, predictive techniques are used in identifying the best model. </li>
+<li>Remove the affected rows from the dataset.</li>
+<li>Remove the feature(s) with missing values from the dataset.</li>
+<li>Estimate the missing values by setting them, for example, to the attribute's median value.</li>
 </ul>
+<p><strong>1)</strong> Find out the attributes that have missing values in the <strong>TRAIN</strong> set. From the output below, you will see that <strong>total_bedrooms</strong> have <strong>16315</strong> values populated out of <strong>16479</strong> total rows. The same goes for <strong>bedrooms_per_rooms</strong> as this attribute was derived from <strong>total_bedrooms</strong>.</p>
 
 </div>
 </div>
@@ -13569,7 +14185,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">select_model</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13580,7 +14196,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>4)</strong> Show the selected model and the score metric on test dataset.</p>
+<p><strong>2)</strong> Count the missing values (NaN) in <strong>total_bedrooms</strong> and <strong>bedrooms_per_rooms</strong>.</p>
 
 </div>
 </div>
@@ -13590,8 +14206,20 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">select_model</span>
-<span class="s2">&quot;</span><span class="si">{:.2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">select_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;total_bedrooms&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NaN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;total_bedrooms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;bedrooms_per_rooms&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NaN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;bedrooms_per_rooms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13602,7 +14230,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>5)</strong> Next, perform a fast model selection on the training data without tuning. This predicts the top 3 models and their respective scores.</p>
+<p><strong>3)</strong> Define a function that will modify the missing values (NaN) in <strong>total_bedrooms</strong> and <strong>bedrooms_per_rooms</strong> to their respective <strong>median</strong> values. In machine learning, setting it to median is the preferred transformation method to populate missing data.</p>
+<p>The function <strong>update_nans()</strong> defined below will take a dataframe and the median values of <strong>total_bedrooms</strong> and <strong>bedrooms_per_rooms</strong> as input, and returns a cleansed dataframe as output.</p>
 
 </div>
 </div>
@@ -13612,7 +14241,12 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ms</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">update_nans</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">total_bdrms_median</span><span class="p">,</span> <span class="n">bdrms_per_rooms_median</span><span class="p">):</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;total_bedrooms&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">total_bdrms_median</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;bedrooms_per_rooms&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">bdrms_per_rooms_median</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13623,36 +14257,368 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.3.-Automatic-Model-Tuning"><span style="color:teal">5.3. Automatic Model Tuning</span><a class="anchor-link" href="#5.3.-Automatic-Model-Tuning">&#182;</a></h2><hr>
-<p>Machine learning algorithms take a set of parameters as input to guide their behavior when generating the models. The task of choosing the right set of parameters and tuning them to achieve the best combination that scores the maximum accuracy, relies heavily on the expertise of the data scientist. Typically, many tedious hours are spent over the course of several iterations to arrive at optimal parameter values.</p>
-<p><strong>Automatic Model Tuning</strong> automates this process using a higly-parallel, asynchronous and gradient-based hyperparameter optimization algorithm to tune the parameters of various machine learning algorithms. It takes advantage of the processing power of the Oracle Database to test the different parameter configurations while training the model. It can automatically generate optimal combinatorial values of the parameters that maximize the prediction accuracy on a given dataset.</p>
-<blockquote><p>OML4Py <strong>Automatic Model Tuning</strong> supports classification and regression functions.</p>
+<p><strong>4)</strong> Calculate the median values of <strong>total_bedrooms</strong> and <strong>bedrooms_per_rooms</strong> on the training set.</p>
+<blockquote><p>Note that we don't want to calculate the median on the whole dataset as that would mean the algorithms are going to learn on the data in the testing set as well. This side-effect that is referred to as <strong>test data leakage</strong> where information from the testing dataset spills over into the training data. This is not preferred as it taints the models.</p>
 </blockquote>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_bdrms_median</span> <span class="o">=</span> <span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;total_bedrooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">bdrms_per_rooms_median</span> <span class="o">=</span> <span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;bedrooms_per_rooms&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>1)</strong> Automatic model tuning in OML4Py is provided by the <strong>oml.automl.ModelTuning</strong> class. To use the oml.automl.ModelTuning class, you specify a dataset and an Oracle Advanced Analytics algorithm. The tuned model with its corresponding hyperparameters are returned.</p>
-<p>For the advanced user, the class allows a customized hyperparameter search space and a non-default scoring metric, among a few other parameters, to influence the "black-box" behavior.</p>
-<blockquote><p>For information on the parameters and methods of the class, invoke help(oml.automl.ModelTuning)</p>
+<p><strong>5)</strong> Using embedded Python execution feature of OML4Py, let's run the <strong>update_nans()</strong> python function inside the database and update the missing values in the training dataset (<strong>TRAIN</strong>).</p>
+<blockquote><p><strong>Embedded Python Execution</strong> allows a Python script to execute in one or more Python engines that run on the database server. The engines are dynamically started and managed by Oracle Database. Note that embedded Python execution can return images as well as structured content in the Python API.</p>
+</blockquote>
+<p><strong>6)</strong> First, check if embedded Python execution is enabled in the database using <strong>oml.check.embed()</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">check_embed</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>7)</strong> Execute the <strong>oml.table_apply()</strong> function to apply <strong>update_nans()</strong> on the <strong>TRAIN</strong> dataset.</p>
+<blockquote><p>The <strong>oml.table_apply()</strong> function executes a user-defined Python function in an embedded Python session running on the Oracle Database server. With the func parameter, you can supply a Python function or you can specify the name of a script in the Oracle Machine Learning for Python script repository. Script and data repositories are covered in a later lab.</p>
 </blockquote>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="o">=</span><span class="n">oml</span><span class="o">.</span><span class="n">table_apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">TRAIN</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">update_nans</span><span class="p">,</span> <span class="n">func_value</span><span class="o">=</span><span class="n">TRAIN</span><span class="p">,</span> 
+                    <span class="n">total_bdrms_median</span><span class="o">=</span><span class="n">total_bdrms_median</span><span class="p">,</span> <span class="n">bdrms_per_rooms_median</span><span class="o">=</span><span class="n">bdrms_per_rooms_median</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>2)</strong> Start an automatic model tuning task on the Backorders dataset using Random Forest.</p>
-<p>Invoke the <strong>tune()</strong> method of <strong>modelTuning</strong> to start the tuning process. Specify <strong>accuracy</strong> as the <strong>score_metric</strong>, which is generally the preferred metric to measure Classification performance.</p>
-<p>The return resultset of <strong>tune()</strong> is an object that contains:</p>
+<p><strong>8)</strong> Next, fix the <strong>NaN</strong>s on the testing set as well, as some ML algorithms that we are going use later require the NaNs to be cleansed prior to using them.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TEST</span><span class="o">=</span><span class="n">oml</span><span class="o">.</span><span class="n">table_apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">TEST</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">update_nans</span><span class="p">,</span> <span class="n">func_value</span><span class="o">=</span><span class="n">TEST</span><span class="p">,</span> 
+                     <span class="n">total_bdrms_median</span><span class="o">=</span><span class="n">total_bdrms_median</span><span class="p">,</span> <span class="n">bdrms_per_rooms_median</span><span class="o">=</span><span class="n">bdrms_per_rooms_median</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>9)</strong> Verify the <strong>NaNs</strong> indeed got updated by checking the counts of rows that have <strong>NaNs</strong> in <strong>total_bedrooms</strong> and <strong>bedrooms_per_rooms</strong>. The below statements should return an <strong>Empty DataFrame</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;total_bedrooms&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NaN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;total_bedrooms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;bedrooms_per_rooms&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NaN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;bedrooms_per_rooms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.5.-Remove-Outliers"><span style="color:teal">4.5. Remove Outliers</span><a class="anchor-link" href="#4.5.-Remove-Outliers">&#182;</a></h3><p>Earlier we saw some tail-heavy distributions of attribute values indicating possible outliers. It is essential to remove these outliers from the training set prior to building any models.</p>
+<p><strong>1)</strong> Check for outliers in <strong>median_house_values</strong> and <strong>population</strong>. This is easily evident through the scatter plot below.</p>
+<p>Note the following outliers - the median_house_value is capped at $500k, and the population value of greater than <strong>20,000</strong> per district, evident through the two right-most blue circles but those are only two districts .</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">housing</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+             <span class="n">s</span><span class="o">=</span><span class="n">housing</span><span class="p">[</span><span class="s2">&quot;median_income&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;population vs median_house_value&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span>
+             <span class="n">c</span><span class="o">=</span><span class="s2">&quot;median_house_value&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;jet&quot;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> In the training set, get a count of house prices above <strong>\$450k</strong>. Observe that rougly <strong>750</strong> districts have their median house prices capped at <strong>\$500,001</strong> (most likely outliers) out of about <strong>800</strong> districts.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">450000</span><span class="p">]</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Remove the above outliers from the training set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="o">=</span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">500001</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> Additionally, there are only a handful districts (1 or 2, depending on split sampling) with population greater than 20k. It will be best to remove these records as  well as it may skew the results.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">20000</span><span class="p">]</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="o">=</span><span class="n">TRAIN</span><span class="p">[</span><span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">20000</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> Verify the total rows in TRAIN test has now decreased.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TRAIN</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>6)</strong> Finally, separate the target attribute from the predictors. All attributes except <strong>median_house_value</strong>, <strong>INCOME_CAT</strong> and <strong>ocean_proximity</strong> will be used predictors (<strong>train_x</strong> DataFrame), whereas the target (<strong>train_y</strong>) is <strong>median_house_value</strong>. As we derived other attributes from <strong>INCOME_CAT</strong> and <strong>ocean_proximity</strong> so they are no longer needed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove median_house_value, INCOME_CAT, and ocean_proximity for train_x</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">TRAIN</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">)</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;INCOME_CAT&#39;</span><span class="p">)</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;ocean_proximity&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initialize train_y for target variable</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">TRAIN</span><span class="p">[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove median_house_value, INCOME_CAT, and ocean_proximity for test_x</span>
+<span class="n">test_x</span> <span class="o">=</span> <span class="n">TEST</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">)</span>
+<span class="n">test_x</span> <span class="o">=</span> <span class="n">test_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;INCOME_CAT&#39;</span><span class="p">)</span>
+<span class="n">test_x</span> <span class="o">=</span> <span class="n">test_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;ocean_proximity&#39;</span><span class="p">)</span>
+
+<span class="c1">#initialize test_y for Target variable </span>
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">TEST</span><span class="p">[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;train_x:&quot;</span><span class="p">,</span> <span class="n">train_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;train_y:&quot;</span><span class="p">,</span> <span class="n">train_y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tx</span><span class="o">=</span><span class="n">train_x</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+<span class="n">ty</span><span class="o">=</span><span class="n">train_y</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ty</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="STEP-5:-Build-Predictive-Models"><span style="color:teal">STEP 5: Build Predictive Models</span><a class="anchor-link" href="#STEP-5:-Build-Predictive-Models">&#182;</a></h2><hr>
+<p>There are many different algorithms to choose when approaching a machine learning problem as no one algorithm is best for solving all types of problems. The performance of an algorithm depends on the size and structure of the dataset being analyzed. So the best way to move forward is to test out a few algorithms through a trial-and-error approach, and narrow down one or two algorithms for further tuning.</p>
+<p>We’re going to take a look at a few prominent ML algorithms for regression problems for analyzing the CA housing dataset.</p>
+<h3 id="5.1.-Build-a-Generalized-Linear-Regression-Model"><span style="color:teal">5.1. Build a Generalized Linear Regression Model</span><a class="anchor-link" href="#5.1.-Build-a-Generalized-Linear-Regression-Model">&#182;</a></h3><p>Generalized Linear Model for Regression is a flexible generalisation of the linear regression model that allows:</p>
 <ul>
-<li><strong>'best_model'</strong>: Best tuned model ready for inference</li>
-<li><strong>'all_evals'</strong>: List of all hyperparameters tried and their corresponding scores (default 4)</li>
+<li>The target variable to have a non-Guassian distribution</li>
+<li>The features to be dependent on other features</li>
+<li>The features to have a non-linear relationship with the target variable</li>
 </ul>
+<p>The word "linear" in GLM does not necessarily require the model to be linear, in fact linear regression is just a special case of GLM that holds linearity. You can find more details on GLM <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">here</a>.</p>
+<p>In Step 3, we built a <strong>GLM</strong> model out-of-the-box and got the <strong>RMSE</strong> value of about <strong>70k</strong> and <strong>R-Squared</strong> of about <strong>0.64</strong>. Let's again build the same model, but this time we have better data so we should expect better accuracy.</p>
+<p><strong>1)</strong> Set the <strong>GLMS_SOLVER</strong> to <strong>dbms_data_mining.GLMS_SOLVER_QR</strong> for GLM, and <strong>oml.glm</strong> object as <strong>regression</strong>.</p>
 
 </div>
 </div>
@@ -13662,8 +14628,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">at</span> <span class="o">=</span> <span class="n">automl</span><span class="o">.</span><span class="n">ModelTuning</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> 
-<span class="n">results</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Specify settings.</span>
+<span class="n">setting</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GLMS_SOLVER&#39;</span><span class="p">:</span> <span class="s1">&#39;dbms_data_mining.GLMS_SOLVER_QR&#39;</span><span class="p">}</span>
+
+<span class="c1"># Create an oml GLM model object.</span>
+<span class="n">glm_mod</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="s2">&quot;regression&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">setting</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13674,7 +14643,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>3)</strong> Show the tuned model details.</p>
+<p><strong>2)</strong> Run the algorithm to generate the ML model using the <strong>fit()</strong> method. Print the details of the model to get insights, incluing the <strong>Root Mean Square Error (RMSE)</strong> and <strong>R-Squared</strong>.</p>
 
 </div>
 </div>
@@ -13684,8 +14653,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tuned_model</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;best_model&#39;</span><span class="p">]</span>
-<span class="n">tuned_model</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit the GLM model according to training data and parameter settings. </span>
+<span class="n">glm_mod</span> <span class="o">=</span> <span class="n">glm_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+
+<span class="c1"># Show the model details.</span>
+<span class="n">glm_mod</span>
 </pre></div>
 
     </div>
@@ -13696,7 +14668,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>4)</strong> Show the <strong>accuracy</strong> score of the tuned model and the corresponding hyperparameters.</p>
+<p><strong>3)</strong> Note the value of <strong>ROOT_MEAN_SQ</strong> now is about 10k lower (~60k) than the value we got before the data preperation step (~70k). This is better but still not where we like it to be, plus this is for the training set.</p>
+<p>Also note that <strong>R^2</strong> is about the same as before (<strong>0.62</strong>).</p>
+<p><strong>4)</strong> Let's now predict the house prices and then re-calculate <strong>RMSE</strong> and <strong>R^2</strong> on the test dataset.</p>
 
 </div>
 </div>
@@ -13706,8 +14680,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">score</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;all_evals&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Score for the rf model with the best parameters: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">score</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Use the model to make predictions on the test data. </span>
+<span class="n">res_glm2</span> <span class="o">=</span> <span class="n">glm_mod</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_x</span><span class="p">)</span>
+<span class="c1">#res_glm = glm_mod.predict(TEST.drop(&#39;median_house_value&#39;), supplemental_cols = TEST[:,[&#39;median_income&#39;,&#39;median_house_value&#39;]])</span>
 </pre></div>
 
     </div>
@@ -13718,7 +14693,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>5)</strong> Retreive the hyperparameter values from the resultset.</p>
+<p><strong>5)</strong> Calculcate RMSE (using the mathematical formula) on the prediction results and also <strong>R^2</strong> using the <strong>score()</strong> function. Notice that they are not much different than what you saw back in <strong>Step 3</strong>. This means we need to try some other ML method/algorithm for this problem.</p>
 
 </div>
 </div>
@@ -13728,7 +14703,46 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#((res_glm[&#39;median_house_value&#39;] - res_glm[&#39;PREDICTION&#39;]) ** 2).mean() ** .5</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">res_glm2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm_mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">TEST</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">),</span> <span class="n">TEST</span><span class="p">[:,[</span><span class="s1">&#39;median_house_value&#39;</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glm_mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13739,8 +14753,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>6)</strong> Invoke the tuning task once again but this time specify a user-defined search space using the <strong>param_space</strong> parameter of <strong>tune()</strong>. This allows you to influence the optimization process by providing search ranges for the hyperparameters (default is none, which means all values are explored).</p>
-<p>Typical use of the search space is when you have developed an understanding on the dataset and know that certain parameter values are simply out of range and need not be explored.</p>
+<p><strong>6)</strong> Calculcate RMSE (using the mathematical formula) on the prediction results and also R^2 using the <strong>score()</strong> function. Notice that they are not much different than what you saw back in <strong>Step 3</strong>. This means we need to try some other ML method/algorithm for this problem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="5.2.-Build-a-Regression-Model-using-Random-Forest"><span style="color:teal">5.2. Build a Regression Model using Random Forest</span><a class="anchor-link" href="#5.2.-Build-a-Regression-Model-using-Random-Forest">&#182;</a></h3><p><strong>Random Forest</strong> uses an ensemble method of machine learning which is built using <strong>decision trees</strong>. Random Forest trains individual decision trees using random subsets of training features, in multple independent iterations. The predictions are averaged across all iterations so any imperfections of the individual models have minimal effect on the final result.</p>
+<blockquote><p><strong>Decision Tree</strong> is an intuitive model where by one traverses down the branches of the tree and selects the next branch to go down based on a decision at a node.</p>
+<p><strong>Ensemble learning</strong> makes predictions based on a number of different models by combining their invididual knowledege. The "ensembled" model generally tends to have a low bias and are known to resist data variance.</p>
+</blockquote>
+<p>Let's evaluate the performance of <strong>Random Forest</strong> on the CA housing dataset.</p>
+<p><strong>1)</strong> For this step, we will use the <strong>RandomForestRegressor</strong> class provided by Scikit-learn and run it in the Database using Embedded Python execution.</p>
+<p><strong>2)</strong> Define a Python function named <strong>randomf_train()</strong> that will call <strong>RandomForestRegressor</strong> to learn, fit, and score the model on training data. The function returns the random forest model to the caller so it could be used for predictions, along with the performance scores, mainly RMSE and R-Squared.</p>
 
 </div>
 </div>
@@ -13750,23 +14777,24 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search_space</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;RFOR_SAMPLING_RATIO&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]},</span> 
-              <span class="s1">&#39;RFOR_NUM_TREES&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;discrete&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">55</span><span class="p">]},</span>
-              <span class="s1">&#39;TREE_IMPURITY_METRIC&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;categorical&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;TREE_IMPURITY_ENTROPY&#39;</span><span class="p">,</span> <span class="s1">&#39;TREE_IMPURITY_GINI&#39;</span><span class="p">]},}</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">randomf_train</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">r2_score</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    
+    <span class="c1"># Learn and Fit the Random Forest model</span>
+    <span class="c1"># rf = RandomForestRegressor(n_estimators=10, random_state=42)</span>
+    <span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                                     <span class="n">min_samples_leaf</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">max_features</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">rf_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> 
-                  <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;f1_macro&#39;</span><span class="p">,</span> <span class="n">param_space</span> <span class="o">=</span> <span class="n">search_space</span><span class="p">)</span>
+    <span class="c1"># Predict on Training Set</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">rf_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">multioutput</span><span class="o">=</span><span class="s1">&#39;variance_weighted&#39;</span><span class="p">)</span> 
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13777,7 +14805,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>7)</strong> Show <strong>f1_score</strong> score of the tuned model and the corresponding hyperparameters.</p>
+<p><strong>3)</strong> Run the function using <strong>oml.table_apply</strong> to invoke embedded python execution feature of the Oracle Database.</p>
 
 </div>
 </div>
@@ -13787,21 +14815,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">score</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;all_evals&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Score for the rf model with the best parameters: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">score</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">retval</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">table_apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">train_x</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">randomf_train</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="n">train_y</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13812,8 +14826,356 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Summary-"><span style="color:teal">Summary </span><a class="anchor-link" href="#Summary-">&#182;</a></h2><hr>
-<p>As demonstrated in this lab, AutoML performs common data science tasks automatically, with less effort and potentially better results. It also leverages the parallel processing and scalability of the Oracle Database and machine learning techniques to minimize execution time while producing high-quality machine learning models.</p>
+<p><strong>4)</strong> By default, <strong>oml.table_apply</strong> returns the function value as <strong>oml.embed.object.Object</strong>, which is a transparency layer representation of a serialized python object stored in the database.</p>
+<p>Check the type of <strong>retval</strong> using the <strong>type()</strong> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">retval</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> If you remember in one of the previous steps, we used the <strong>pull()</strong> method to create a de-serialized object in the local python session by <strong>pulling</strong> the data from the database. Similarly, get the values returned by <strong>randomf_train</strong> into your local python session using the <strong>pull()</strong> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rf_model</span><span class="p">,</span> <span class="n">forest_rmse_train</span><span class="p">,</span> <span class="n">forest_r2_train</span> <span class="o">=</span> <span class="n">retval</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>6)</strong> Print the details on the model and the parameters used.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rf_model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>7)</strong> Print the performance metrics of the model on the training set. Note the <strong>R-Squared</strong> score obtained <strong>0.95</strong>, which is really good! Also the <strong>RMSE</strong> of about <strong>21k</strong> is the best we have seen sofar. Is it possible the model may be overfitting?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Root Mean Square Error (RMSE) on Training Set: </span><span class="si">%0.4f</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="n">forest_rmse_train</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;R-Squared (R^2) on Training Set: </span><span class="si">%0.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">forest_r2_train</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>8)</strong> Let's measure the performance on the testing set. Create another function named <strong>randomf_test</strong> that will take the model and the dataset as input and calculates the performance metrics.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">randomf_test</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">r2_score</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="c1"># Predict on Testing Set</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">multioutput</span><span class="o">=</span><span class="s1">&#39;variance_weighted&#39;</span><span class="p">)</span> 
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>9)</strong> Run the function using <strong>oml.table_apply</strong> to invoke embedded python execution feature of the Oracle Database.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">retval</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">table_apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">test_x</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">randomf_test</span><span class="p">,</span> <span class="n">rf</span><span class="o">=</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="n">test_y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>10)</strong> Deserialize the results of python execution into your local session using the <strong>pull()</strong> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">forest_rmse_test</span><span class="p">,</span> <span class="n">forest_r2_test</span> <span class="o">=</span> <span class="n">retval</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Root Mean Square Error (RMSE) on Testing Set: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">forest_rmse_test</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;R-Squared (R^2) on Testing Set: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">forest_r2_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>11)</strong> This is surprising! The model that once showed a lot of promise during training, performs very bad at testing. The RMSE is worse than we got from any of the previous techniques.</p>
+<p>It seems like the model was <strong>overfit</strong> during training, which is possible to tune by adjusting some hyperparameters, but let's look at one other method and see if that performs any better out-of-the-box.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="5.3.-Using-Gradient-Boosting-in-Regression"><span style="color:teal">5.3. Using Gradient Boosting in Regression</span><a class="anchor-link" href="#5.3.-Using-Gradient-Boosting-in-Regression">&#182;</a></h3><p>Gradient Boosting is another ensemble technique which produces a prediction model that is an "ensemble" of multiple weak prediction models, usually decision trees. This is similar to Random Forest, the difference being the predictors in Gradient Boosting are made sequentially and not independently (using the <strong>boosting</strong> technique), which enables the predictors to learn from the mistakes of previous predictors.</p>
+<p><strong>1)</strong> For this step, we will use the <strong>GradientBoostingRegressor</strong> class provided by Scikit-learn and run it in the Database using Embedded Python execution.</p>
+<p><strong>2)</strong> Define a Python function named <strong>gboost_train()</strong> that will call <strong>GradientBoostingRegressor</strong> to learn, fit, and score the model on the training data. The function returns the gradient boost model and the performance scores, mainly RMSE and R-Squared.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">gboost_train</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span><span class="p">,</span><span class="n">r2_score</span>
+    <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">GradientBoostingRegressor</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    
+    <span class="c1"># Set Hyperparameters</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="s1">&#39;huber&#39;</span><span class="p">,</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span><span class="mf">0.95</span><span class="p">}</span>
+    
+    <span class="c1"># Train the algo</span>
+    <span class="n">gb_model</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+    
+    <span class="c1"># Predict on the training set</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">gb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate performance scores</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+    
+    <span class="c1"># return the model and the scores</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">gb_model</span><span class="p">,</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Run the function using <strong>oml.table_apply</strong> to invoke embedded python execution feature of the Oracle Database.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">retval</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">table_apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">train_x</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">gboost_train</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="n">train_y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> Print the performance scores on the training set. What do you see?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gboost_model</span><span class="p">,</span> <span class="n">gboost_rmse</span><span class="p">,</span> <span class="n">gboost_r2</span> <span class="o">=</span> <span class="n">retval</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Root Mean Square Error (RMSE) on Testing Set: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">gboost_rmse</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;R-Squared (R^2) on Testing Set: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">gboost_r2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> The performance looks very promising (again) in training, as the case was with Random Forest. But is it due to overfitting the model?</p>
+<p><strong>6)</strong> Let's crosscheck with testing data. Create another function named <strong>gboost_test</strong> that will take the model and the testing dataset as input and calculates the performance metrics.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">gboost_test</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">gb_model</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span><span class="p">,</span><span class="n">r2_score</span>
+    <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">GradientBoostingRegressor</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    
+    <span class="c1"># Predict on the testing set</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">gb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate performance scores</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+    
+    <span class="c1"># return the scores</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>7)</strong> Run the function using <strong>oml.table_apply</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">retval</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">table_apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">test_x</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">gboost_test</span><span class="p">,</span> <span class="n">gb_model</span><span class="o">=</span><span class="n">gboost_model</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="n">test_y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>8)</strong> Print the performance scores on the testing set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gboost_rmse</span><span class="p">,</span> <span class="n">gboost_r2</span> <span class="o">=</span> <span class="n">retval</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Root Mean Square Error (RMSE) on Testing Set: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">gboost_rmse</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;R-Squared (R^2) on Testing Set: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">gboost_r2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>9)</strong> These are the best numbers we've gotten from any model we've implemented - <strong>RMSE</strong> of about <strong>47k</strong> and R-Squared of <strong>0.84</strong>. This model can be further tuned for performance.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="5.4.-Summary"><span style="color:teal">5.4. Summary</span><a class="anchor-link" href="#5.4.-Summary">&#182;</a></h3><p>This lab gave overview on how to approach a machine learning problem using <strong>Oracle Machine Learning for Python</strong>, all the way from data preperation to choosing the appropriate algorithms that works best for the dataset. You have seen that we iteratively identified the ML algorithm that gives the best performance, as usually this is the only approach as it is hard to know in the beginning which algorithm suits the best.</p>
+<p>We saw that machine learning is applicable to the task of predicting house prices using available datasets. Using a gradient boosted regressor we were able to predict the scores on the test set to within $40k of the true value, which can be further improved by hypertuning the parameters.</p>
 
 </div>
 </div>

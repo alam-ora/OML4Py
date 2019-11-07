@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>1 - OML4Py Introduction</title>
+<title>Lab_05</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,30 +13077,19 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Getting-Started-with-Oracle-Machine-Learning-for-Python"><span style="color:teal">Getting Started with Oracle Machine Learning for Python</span><a class="anchor-link" href="#Getting-Started-with-Oracle-Machine-Learning-for-Python">&#182;</a></h1><hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Oracle Machine Learning for Python (OML4Py)</strong> is a component of the Oracle Database Enterprise Edition that makes open source Python ready for the enterprise and big data. OML4Py integrates Python with the Oracle Database and provides a comprehensive, database-centric environment for end-to-end analytical processing.</p>
-<p>OML4Py provides the users the capability to execute Python functions on database-resident data for data exploration and preparation, whilst seamlessly leveraging the Oracle Database as a high-performance computing (HPC) environment. Furthermore, Python users can natively invoke powerful in-database machine learning algorithms directly in Python.</p>
-<p>OML4Py also provides the ability to immediately deploy the ML scripts to production environments, and assist with operationalizing the Python scripts for analytical applications.</p>
-<p>Oracle Machine Learning for Python also introduces new capabilities for automated model selection, automated feature selection, and auto tuning of algorithm hyperparameters – thereby helping automate and simplifying key data science tasks and minimize manual efforts.</p>
-<p><strong>Key Benefits of OML4Py</strong></p>
+<h1 id="Lab-5:-Automatic-Machine-Learning"><span style="color:teal">Lab 5: Automatic Machine Learning</span><a class="anchor-link" href="#Lab-5:-Automatic-Machine-Learning">&#182;</a></h1><hr>
+<p>Machine learning today has made its way into the enterprise domain. However, the traditional ML process is human-dependent, and not all businesses have the resources to invest in an experienced data science team. AutoML may be the answer to such situations.</p>
+<p><strong>Automatic Machine Learning (AutoML)</strong> is the process of automating the end-to-end process of applying machine learning to real-world problems. The purpose of AutoML is to automate the repetitive tasks like feature selection, model selection and model tuning, so that data scientists can actually spend more time on the problem at hand. AutoML essentially brings machine learning in the hands of people who have no major expertise in this field.</p>
+<p><strong>Oracle Machine Learning for Python</strong> has the following <strong>AutoML</strong> capabilities:</p>
 <ul>
-<li>Seamlessly leverage Oracle Database as an HPC environment for Python scripts – whilst providing data parallelism and resource management</li>
-<li>Provide wide range of in-database predictive analytics and machines learning algorithms</li>
-<li>Avoid reinventing code to integrate Python results into existing applications</li>
-<li>Operationalize entire Python scripts in production applications - eliminate porting Python code</li>
-<li>Minimize data movement from enterprise data stores and Python clients</li>
-<li>Perform scalable exploratory data analysis for big data</li>
-<li>Use Python packages contributed by the Python community</li>
-<li>Automatically leverage database backup and recovery mechanisms</li>
-<li>Reach Hadoop data through Oracle Big Data SQL</li>
+<li><p><strong>Automatic Feature Selection</strong> that reduces the size of the original feature set to help speed-up model training and tuning, without compromising on model quality.</p>
+</li>
+<li><p><strong>Automatic Model Selection</strong> that selects the appropriate machine learning algorithm from the supported Oracle Advanced Analytics algorithms.</p>
+</li>
+<li><p><strong>Automatic Model Tuning</strong> that tunes the model hyperparameters to maximize the scoring metric selected from the several scoring metrics supported for the model.</p>
+</li>
 </ul>
+<p>AutoML performs those common data scientist tasks automatically, with less effort and potentially better results. It also leverages the parallel processing and scalability of Oracle Database and machine learning techniques to minimize execution time while producing high-quality results.</p>
 
 </div>
 </div>
@@ -13108,11 +13097,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Lab-Objectives"><span style="color:teal">Lab Objectives</span><a class="anchor-link" href="#Lab-Objectives">&#182;</a></h1><p>This hands-on lab will highlight the following features of OML4Py:</p>
-<ul>
-<li>Moving data between Oracle Database and Python sessions</li>
-<li>Using Datastores for storing Python objects</li>
-</ul>
+<h2 id="5.1.-Automatic-Feature-Selection"><span style="color:teal">5.1. Automatic Feature Selection</span><a class="anchor-link" href="#5.1.-Automatic-Feature-Selection">&#182;</a></h2><hr>
+<p>In a data analytics application, feature selection is a critical stage in data preprocessing that has a high impact on both runtime and model performance. It is the process of taking a dataset and constructing explanatory features that can be used to train a machine learning model for a prediction problem.</p>
+<p>The traditional approach to feature selection is to manually build the features using domain knowledge and statistical analysis, which is tedious, time-consuming, and error prone. Moreover, the steps for feature engineering nned to be re-written for each new dataset.</p>
+<p><strong>Automatic Feature Selection</strong>, a compoment of OML4Py's <strong>Automatic Machine Learning (AutoML)</strong>, improves upon this standard workflow by automatically extracting useful and meaningful features from a set of related data, using a framework that can be applied to any problem. It cuts down on the time spent in feature selection and ideally, should be made a standard part of any machine learning workflow.</p>
+<p>Automatic feature selection uses several feature-ranking algorithms to identify the best feature subset that reduces model training time without compromising model performance. Oracle advanced meta-learning techniques quickly prune the search space of this feature selection optimization.</p>
+<p>Automatic feature selection is handled by <strong>oml.automl.FeatureSelection</strong> class, which takes in a data set and the Oracle Advanced Analytics algorithm on which to test the feature reduction. For information on the parameters and methods of the class, you may invoke <strong>help(oml.automl.FeatureSelection)</strong>.</p>
+<blockquote><p><strong>Note:</strong> Oracle AutoML Automatic Feature Selection currently supports <strong>Classification</strong> algorithms.</p>
+</blockquote>
 
 </div>
 </div>
@@ -13120,137 +13112,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Lab-Steps"><span style="color:teal">Lab Steps</span><a class="anchor-link" href="#Lab-Steps">&#182;</a></h1><hr>
-<p>Please follow the below steps to complete this lab.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="STEP-1:-Connecting-to-the-Oracle-Database"><span style="color:teal">STEP 1: Connecting to the Oracle Database</span><a class="anchor-link" href="#STEP-1:-Connecting-to-the-Oracle-Database">&#182;</a></h2><hr>
-<ol>
-<li>To use <strong>Oracle Machine Learning for Python</strong>, you must first import <strong><em>oml</em></strong> Python module which contains the Python routines of OML4Py. The oml module depends on few other Python modules, including <strong><em>cx_Oracle</em></strong>, which is the module that enables Oracle Database access from Python.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">oml</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>OML4Py allows you to connect to the Oracle Database from a Python session. The connection not only makes the database resident data accessible in Python, but also the processing power, memory, and storage capacities of the database server.</p>
-<p><strong>Note:</strong> OML4Py supports a variety of connection options for connecting to the Oracle Database, including Oracle Wallets which is the preferred method of connection to the Oracle Autonomous Database.</p>
-</li>
-</ol>
-<ol>
-<li><p>Create a connection to the Oracle Database server using <strong><em>oml.connect()</em></strong>. This method establishes a connection to a user schema in the Oracle Database instance.</p>
-<p><strong>Note:</strong> The Oracle Database needs the appropriate OML4Py server components pre-installed for a successful connection.</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;labuser&quot;</span><span class="p">,</span><span class="s2">&quot;labuser&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1521</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;pdb&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Once connected, invoke <strong><em>oml.isconnected()</em></strong> to check if the connection was successful. The function will return <strong>True</strong> if the connection was successful.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">isconnected</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Users can get online help using Python's <strong><em>help()</em></strong> function and specifying the function of interest. For example:</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">oml</span><span class="o">.</span><span class="n">connect</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="STEP-2:-Moving-Data-between-a-Database-and-a-Python-Session"><span style="color:teal">STEP 2: Moving Data between a Database and a Python Session</span><a class="anchor-link" href="#STEP-2:-Moving-Data-between-a-Database-and-a-Python-Session">&#182;</a></h2><hr>
-<p>One of the benefits of OML4Py is its capability to interact with the data structures in an Oracle Database schema from a Python session. OML4Py allows you to move data between a Python session and the Oracle database, and persist it as a temporary database table or a permanent table.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.1.-Create-a-Temporary-Database-Table-using-a-Python-Dataset"><span style="color:teal">2.1. Create a Temporary Database Table using a Python Dataset</span><a class="anchor-link" href="#2.1.-Create-a-Temporary-Database-Table-using-a-Python-Dataset">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>You can create a temporary table in the Oracle database and store the Python resident data in the table using <strong><em>oml.push()</em></strong>. The push function inserts data into the temporary table and returns a corresponding <strong>OML DataFrame</strong> (oml.DataFrame) object that references the database table from the client Python engine.</p>
-<p>The temporary table exists as long as the oml object that references it exists, either in the Python engine memory or in the OML4Py <strong>datastore</strong>. The temporary table is automatically deleted when the Python session disconnects, unless you saved the object to a datastore before disconnecting (<strong>datastores</strong> are discussed later in this lab).</p>
-<p>The example below creates a Pandas DataFrame object (<strong>pd_df</strong>) with columns of various data types. It pushes the dataframe <strong>pd_df</strong> to a temporary database table in the Oracle database, which creates the OML Dataframe (<strong>oml_df</strong>) object that references the temporary table.</p>
-</li>
-</ol>
+<h3 id="STEP-1:-Load-and-Explore-the-Dataset"><span style="color:teal">STEP 1: Load and Explore the Dataset</span><a class="anchor-link" href="#STEP-1:-Load-and-Explore-the-Dataset">&#182;</a></h3><p>To demonstrate <strong>Automatic Feature Selection</strong> we will use a labeled dataset for predicting product backorders which was sourced from "Can You Predict Product Backorders?" dataset from Kaggle. Predicting whether the product will be backrodered based on past sales, is a Classification problem with binary outcome.</p>
+<blockquote><p>The dataset was prepared for the purposes of this lab, mainly that the null values were replaced with estimated samples, character data was transformed to numeric, and irrelevant features and rows were removed.</p>
+</blockquote>
+<p><strong>1)</strong> Load the dataset from the CSV file using <strong>read_csv</strong> function in Pandas. It is also important to shuffle the dataset to reset the order of records in case the datafile was ordered prior to creation.</p>
 
 </div>
 </div>
@@ -13262,15 +13127,11 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="c1"># Create a Pandas DataFrame</span>
-<span class="n">pd_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;numeric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">3.145</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> 
-                      <span class="s1">&#39;string&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span>
-                      <span class="s1">&#39;bytes&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;e&#39;</span><span class="p">]})</span>
+<span class="c1"># Import data from file</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;datasets/backorders/backorders.csv&#39;</span><span class="p">)</span>
 
-<span class="c1"># Push the Pandas DataFrame to a database table with the specified dbtypes for each column</span>
-<span class="n">oml_df</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">pd_df</span><span class="p">,</span> <span class="n">dbtypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;numeric&#39;</span><span class="p">:</span> <span class="s1">&#39;BINARY_DOUBLE&#39;</span><span class="p">,</span>
-                                    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;CHAR(1)&#39;</span><span class="p">,</span>
-                                    <span class="s1">&#39;bytes&#39;</span><span class="p">:</span> <span class="s1">&#39;RAW(1)&#39;</span><span class="p">})</span>
+<span class="c1"># Shuffle the data so the ordering is random</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13281,26 +13142,424 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>Note the <strong><em>dbtypes</em></strong> argument of <strong><em>oml.push()</em></strong> lets you specify the SQL data types for the table columns. The values of dbtypes may either be:</p>
+<p><strong>2)</strong> Connnect to the Oracle Database using <strong>oml.connect()</strong> with <strong>automl=True</strong>. This is required in order to enable a connection for Automatic Machine Learning.</p>
+<blockquote><p><strong>Note:</strong> An AutoML enabled connection uses database-resident connection pooling, which means that the database administrator must have first activated database-resident connection pooling for the connection to be scuccessful. This setup has already been performed for this lab.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">oml</span>
+<span class="kn">from</span> <span class="nn">oml</span> <span class="k">import</span> <span class="n">automl</span>
+<span class="kn">from</span> <span class="nn">oml</span> <span class="k">import</span> <span class="n">algo</span>
+<span class="kn">from</span> <span class="nn">oml.automl</span> <span class="k">import</span> <span class="n">FeatureSelection</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">oml</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;labuser&quot;</span><span class="p">,</span> <span class="s2">&quot;labuser&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1521</span><span class="p">,</span> <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;pdb&quot;</span><span class="p">,</span> <span class="n">automl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">oml</span><span class="o">.</span><span class="n">isconnected</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Load the data in Oracle into a table named <strong>BACKORDERS</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;BACKORDERS&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="n">oml_df</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;BACKORDERS&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> Get to know the data - check the feature columns and target. Note that there are <strong>21</strong> features in this dataset, the labled target being <strong>went_on_backorder</strong>. Also note that not all features may be required for prediction as some may not be correlated with the target.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> Describe the data to get descriptive statistics on the columns in the dataset, including data distribution, std deviation, min, max and counts.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="STEP-2:-Get-Baseline-Performance-with-All-Features"><span style="color:teal">STEP 2: Get Baseline Performance with All Features</span><a class="anchor-link" href="#STEP-2:-Get-Baseline-Performance-with-All-Features">&#182;</a></h3><p>Let's first check the baseline performance of <strong>SVM</strong> classification using all the features in the dataset.</p>
+<p><strong>1)</strong> Split the dataset into <strong>train/test</strong> with a ratio of <strong>80/20</strong> using stratified sampling, in which all columns will be used to preserve data distribution after the splits.</p>
+<p>Also, separate the predictors and targets for testing and training into <strong>train_x</strong>, <strong>train_y</strong> and <strong>test_x</strong>, <strong>test_y</strong>, respectively.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split the data set into train and test. </span>
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">oml_df</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ratio</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">strata_cols</span><span class="o">=</span><span class="n">oml_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> 
+
+<span class="c1"># Separate the predictors and targets for test and train.</span>
+<span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">),</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">]</span>
+<span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">),</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;went_on_backorder&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Build the SVM prediction model using <strong>oml.svm</strong> on training data. Also capture the model build time for later comparisons.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">mod</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">svm</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span> 
+
+<span class="n">orig_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_time</span>
+<span class="n">orig_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Get the SVM model's <strong>Accuracy</strong> metric on the test set using the <strong>score</strong> function. The score function returns the mean accuracy for classification algorithms.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">orig_accuracy</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> Print the model training statistics, including accuracy and build time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Metrics WITHOUT Automatic Feature Selection&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;-------------------------------------------&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Total features trained: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">orig_features</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model training time: </span><span class="si">%d</span><span class="s2"> secs&quot;</span> <span class="o">%</span> <span class="n">orig_time</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model accuracy: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">orig_accuracy</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="STEP-3:-Using-Automatic-Feature-Selection"><span style="color:teal">STEP 3: Using Automatic Feature Selection</span><a class="anchor-link" href="#STEP-3:-Using-Automatic-Feature-Selection">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Automatic Feature Selection evaluates the performance of various features in the dataset, identifying the best features or feature subsets that reduce the model training time without compromising on model performance.</p>
+<p>Oracle has advanced meta-learning techniques that quickly prunes the search space by applying several ranking algorithms given a training dataset and the ML algorithm, which enables even a novice user to create hundreds of relevant features very quickly from the dataset.</p>
+<p><strong>1)</strong> Automatic Feature Selection is initialized using <strong>automl.FeatureSelection</strong> class. You can specify the <strong>score_metric</strong>, which for classification is the prediction <strong>Accuracy</strong>. You can also use the parallel clause to specify database parallelism to speed-up processing.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">automl</span><span class="o">.</span><span class="n">FeatureSelection</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Get the reduced feature subset on the training set by invoking the <strong>reduce()</strong> method. Note that you specify the ML algorithm for classification which in this case is <strong>svm_linear</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">subset</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;svm_linear&#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+
+<span class="n">automl_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="n">reduced_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Train a SVM model using the reduced feature set discovered by automatic feature selection.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="p">[:,</span> <span class="n">subset</span><span class="p">]</span>
+<span class="n">new_test_x</span> <span class="o">=</span> <span class="n">test_x</span><span class="p">[:,</span> <span class="n">subset</span><span class="p">]</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="n">mod</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">svm</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">new_train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span> 
+
+<span class="n">reduced_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="n">reduced_accuracy</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">new_test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>4)</strong> Print the model accuracy and training time, along with the gain in feature reduction.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Metrics WITH Automatic Feature Selection&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;----------------------------------------&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Feature reduction obtained: </span><span class="si">%d</span><span class="s2">x&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">orig_features</span><span class="o">/</span><span class="n">reduced_features</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model training time: </span><span class="si">%d</span><span class="s2"> secs (gain </span><span class="si">%.2f%%</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reduced_time</span><span class="p">,</span> <span class="p">(</span><span class="n">reduced_time</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">orig_time</span><span class="p">)))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model accuracy: </span><span class="si">%.4f</span><span class="s2"> (original </span><span class="si">%.4f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reduced_accuracy</span><span class="p">,</span> <span class="n">orig_accuracy</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>5)</strong> Graph the performance metrics for visual comparison. Notice that with Automatic Feature Selection, the training time is reduced without compromising on accuracy.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Model Creation Time</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
+<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">orig_time</span><span class="p">,</span> <span class="n">reduced_time</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Model Creation Time (secs)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Model Accuracy</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
+<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">orig_accuracy</span><span class="p">,</span> <span class="n">reduced_accuracy</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Model Feature Reduction</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">,</span><span class="s1">&#39;Automatic Feature Selection&#39;</span><span class="p">)</span>
+<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objects</span><span class="p">))</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="p">[</span><span class="n">orig_features</span><span class="p">,</span> <span class="n">reduced_features</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;# of Features&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Feature Reduction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.2.-Automatic-Model-Selection"><span style="color:teal">5.2. Automatic Model Selection</span><a class="anchor-link" href="#5.2.-Automatic-Model-Selection">&#182;</a></h2><hr>
+<p>Selecting the best data mining algorithm for a dataset is not trivial as no single algorithm works best for all ML problems. Moreover, some algorithms favor a different way of engineering the features which further complicates the task especially when the features may need to be re-engineered for each algorithm.</p>
+<p>Oracle Machine Learning's <strong>Automatic Model Selection</strong> comes to the rescue. With Automatic Model Selection, the best model from a set of supported machine learning models is selected just by using the characteristics of the dataset and the ML task.</p>
+<p>This capability is achieved through Oracle's advanced meta-learning intelligence which suggests the best model for a dataset by evaluating only a few models. This is possible through the knowledge base that Oracle has built by learning the metadata from a repertoire of datasets.</p>
+<blockquote><p>OML4Py <strong>Automatic Model Selection</strong> currently supports classification algorithms.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>1)</strong> Use the <strong>automl.ModelSelection</strong> class of OML4Py to invoke automatic model selection capabilities.</p>
+<p>With oml.automl.ModelSelection class, you specify a dataset and the number of algorithms you like to tune. The resultset returned is a ranked list of models that are predicted to perform the best on the given dataset.</p>
+<p>For information on the parameters and methods of the class, invoke help(oml.automl.ModelSelection).</p>
+<blockquote><p>The following metrics are supported for measuring binary Classification algorithm performance in automatic model selection: <strong>accuracy</strong>, <strong>f1</strong>, <strong>precision</strong>, <strong>recall</strong>, <strong>roc_auc</strong>, <strong>f1_micro</strong>, <strong>f1_macro</strong>, <strong>f1_weighted</strong>, <strong>recall_micro</strong>, <strong>recall_weighted</strong>, <strong>precision_micro</strong>, <strong>precision_macro</strong> and <strong>precision_weighted</strong></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Create an automatic model selection object with <strong>accuracy</strong> as the score metric, which is the preferred metric to measure classification accuracy.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ms</span> <span class="o">=</span> <span class="n">automl</span><span class="o">.</span><span class="n">ModelSelection</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>3)</strong> Run the model selection using the <strong>select()</strong> method. The <strong>select()</strong> method accepts the following parameters.</p>
 <ul>
-<li>A <strong>dict</strong> that maps a key (column name) to its value, for example: {'numeric' : 'BINARY_DOUBLE'}</li>
-<li>A <strong>list</strong> of values, example: {'BINARY_DOUBLE', 'VARCHAR2'}</li>
+<li><strong>k</strong>: Returns the top k best models. Use k=1 to return only the top model.</li>
+<li><strong>tune</strong>: When <strong>True</strong> (default), the select() method returns the best model. When <strong>False</strong>, the method returns a list of top <strong>k</strong> models and their predicted scores.</li>
+<li><strong>solver</strong>: When set to <strong>exhaustive</strong>, the model selection process thoroughly searches the model space and identifies the best model. When <strong>fast</strong>, predictive techniques are used in identifying the best model. </li>
 </ul>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>Get the column names of the OML DataFrame object using the <strong><em>columns</em></strong> method. In OML4Py, the columns method is overloaded to work with Oracle database tables and returns column names of the Oracle table.</p>
-<p><strong>Note:</strong> OML4Py overloads quite a few Python functions to work with Oracle database-resident objects.</p>
-</li>
-</ol>
 
 </div>
 </div>
@@ -13310,8 +13569,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the column names of the temporary table</span>
-<span class="n">oml_df</span><span class="o">.</span><span class="n">columns</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">select_model</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13322,9 +13580,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Sample the first few rows from the temporary table using the <strong><em>head()</em></strong> method. Just like the columns method, <strong><em>head()</em></strong> is also overloaded to work with Oracle database tables and it returns the first few rows from the table.</li>
-</ol>
+<p><strong>4)</strong> Show the selected model and the score metric on test dataset.</p>
 
 </div>
 </div>
@@ -13334,8 +13590,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sample the first few rows</span>
-<span class="n">oml_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">select_model</span>
+<span class="s2">&quot;</span><span class="si">{:.2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">select_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13346,17 +13602,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.2.-Create-a-Persistent-Database-Table-from-a-Python-Dataset"><span style="color:teal">2.2. Create a Persistent Database Table from a Python Dataset</span><a class="anchor-link" href="#2.2.-Create-a-Persistent-Database-Table-from-a-Python-Dataset">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>OML4Py also allows you to persist the Python data as a permanent database table in the Oracle database that gets saved even after the Python session disconnects.</p>
-<ol>
-<li>Use the <strong><em>oml.create()</em></strong> function to create a persistent table in the database schema from data in the Python session. <strong><em>oml.create()</em></strong> creates the table and returns an <strong>OML DataFrame</strong> object that is a proxy for the table. This is similar to <strong><em>oml.push()</em></strong> except that the table created in Oracle is a permanent table.</li>
-</ol>
+<p><strong>5)</strong> Next, perform a fast model selection on the training data without tuning. This predicts the top 3 models and their respective scores.</p>
 
 </div>
 </div>
@@ -13366,15 +13612,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;numeric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">3.145</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> 
-                   <span class="s1">&#39;string&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span>
-                   <span class="s1">&#39;bytes&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;e&#39;</span><span class="p">]})</span>
-
-<span class="c1"># Create a table with the default parameters</span>
-<span class="k">try</span><span class="p">:</span> <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;tbl1&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-
-<span class="n">oml_df1</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;tbl1&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ms</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13385,9 +13623,36 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Get the column names of the permanent table that was just created using the <strong><em>columns</em></strong> method.</li>
-</ol>
+<h2 id="5.3.-Automatic-Model-Tuning"><span style="color:teal">5.3. Automatic Model Tuning</span><a class="anchor-link" href="#5.3.-Automatic-Model-Tuning">&#182;</a></h2><hr>
+<p>Machine learning algorithms take a set of parameters as input to guide their behavior when generating the models. The task of choosing the right set of parameters and tuning them to achieve the best combination that scores the maximum accuracy, relies heavily on the expertise of the data scientist. Typically, many tedious hours are spent over the course of several iterations to arrive at optimal parameter values.</p>
+<p><strong>Automatic Model Tuning</strong> automates this process using a higly-parallel, asynchronous and gradient-based hyperparameter optimization algorithm to tune the parameters of various machine learning algorithms. It takes advantage of the processing power of the Oracle Database to test the different parameter configurations while training the model. It can automatically generate optimal combinatorial values of the parameters that maximize the prediction accuracy on a given dataset.</p>
+<blockquote><p>OML4Py <strong>Automatic Model Tuning</strong> supports classification and regression functions.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>1)</strong> Automatic model tuning in OML4Py is provided by the <strong>oml.automl.ModelTuning</strong> class. To use the oml.automl.ModelTuning class, you specify a dataset and an Oracle Advanced Analytics algorithm. The tuned model with its corresponding hyperparameters are returned.</p>
+<p>For the advanced user, the class allows a customized hyperparameter search space and a non-default scoring metric, among a few other parameters, to influence the "black-box" behavior.</p>
+<blockquote><p>For information on the parameters and methods of the class, invoke help(oml.automl.ModelTuning)</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>2)</strong> Start an automatic model tuning task on the Backorders dataset using Random Forest.</p>
+<p>Invoke the <strong>tune()</strong> method of <strong>modelTuning</strong> to start the tuning process. Specify <strong>accuracy</strong> as the <strong>score_metric</strong>, which is generally the preferred metric to measure Classification performance.</p>
+<p>The return resultset of <strong>tune()</strong> is an object that contains:</p>
+<ul>
+<li><strong>'best_model'</strong>: Best tuned model ready for inference</li>
+<li><strong>'all_evals'</strong>: List of all hyperparameters tried and their corresponding scores (default 4)</li>
+</ul>
 
 </div>
 </div>
@@ -13397,8 +13662,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the columns names</span>
-<span class="n">oml_df1</span><span class="o">.</span><span class="n">columns</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">at</span> <span class="o">=</span> <span class="n">automl</span><span class="o">.</span><span class="n">ModelTuning</span><span class="p">(</span><span class="n">mining_function</span><span class="o">=</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> 
+<span class="n">results</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13409,9 +13674,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Sample the first few rows using <strong><em>head()</em></strong>.</li>
-</ol>
+<p><strong>3)</strong> Show the tuned model details.</p>
 
 </div>
 </div>
@@ -13421,7 +13684,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_df1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tuned_model</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;best_model&#39;</span><span class="p">]</span>
+<span class="n">tuned_model</span> 
 </pre></div>
 
     </div>
@@ -13432,12 +13696,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Notice that <strong><em>dbtypes</em></strong> argument was not used when creating the permanent table. In this case, OML4Py determines the default column types by randomly sampling 20 rows from the table (or the full table if the table has less than 20 rows). </li>
-</ol>
-<ol>
-<li>Display the default data types of the table that was just created using an <strong><em>oml.cursor()</em></strong> object. oml.cursor opens a SQL cursor in the Oracle database which can be executed using the <strong><em>execute()</em></strong> method and the query results fetched using the <strong><em>fetchall()</em></strong> method.</li>
-</ol>
+<p><strong>4)</strong> Show the <strong>accuracy</strong> score of the tuned model and the corresponding hyperparameters.</p>
 
 </div>
 </div>
@@ -13447,13 +13706,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a cursor object for the current oml database connection </span>
-<span class="c1"># to execute queries and get information from the database</span>
-<span class="n">cr</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-
-<span class="c1"># Show the default SQL data types of the columns</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select data_type from all_tab_columns where table_name = &#39;tbl1&#39;&quot;</span><span class="p">)</span> 
-<span class="n">cr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">score</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;all_evals&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Score for the rf model with the best parameters: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">score</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13464,11 +13718,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>If the data in a Pandas DataFrame column contains <strong>NaN</strong> values, then you should use <strong><em>oranumber=False</em></strong> clause. Doing so will change the table's data type to BINARY_DOUBLE from NUMBER.</p>
-<p><strong>Note:</strong> Oracle's BINARY_DOUBLE allows a double-precision native floating point number that supports +Inf, -Inf, and NaN values.</p>
-</li>
-</ol>
+<p><strong>5)</strong> Retreive the hyperparameter values from the resultset.</p>
 
 </div>
 </div>
@@ -13478,16 +13728,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a table with oranumber set to False</span>
-
-<span class="k">try</span><span class="p">:</span> <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;tbl2&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-
-<span class="n">oml_df2</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;tbl2&#39;</span><span class="p">,</span> <span class="n">oranumber</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># Show the SQL data typea of the columns</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select data_type from all_tab_columns where table_name = &#39;tbl2&#39;&quot;</span><span class="p">)</span> 
-<span class="n">cr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -13498,11 +13739,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>If the values in a column are all <strong>None</strong>, or if a column has inconsistent data types in the sampled rows, then a default column type cannot be determined. In such case the column type can be specified using the <strong><em>dbtypes</em></strong> argument. Using dbtypes you can specify the SQL data types for the table columns.</p>
-<p>Create a table with <strong><em>dbtypes</em></strong> specified as a <strong>dict</strong> mapping column names to SQL data types.</p>
-</li>
-</ol>
+<p><strong>6)</strong> Invoke the tuning task once again but this time specify a user-defined search space using the <strong>param_space</strong> parameter of <strong>tune()</strong>. This allows you to influence the optimization process by providing search ranges for the hyperparameters (default is none, which means all values are explored).</p>
+<p>Typical use of the search space is when you have developed an understanding on the dataset and know that certain parameter values are simply out of range and need not be explored.</p>
 
 </div>
 </div>
@@ -13512,312 +13750,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a table with dbtypes specified as a dict mapping column names to SQL data types</span>
-
-<span class="k">try</span><span class="p">:</span> <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;tbl3&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-
-<span class="n">oml_df3</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;tbl3&#39;</span><span class="p">,</span> <span class="n">dbtypes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;numeric&#39;</span><span class="p">:</span> <span class="s1">&#39;BINARY_DOUBLE&#39;</span><span class="p">,</span> <span class="s1">&#39;bytes&#39;</span><span class="p">:</span><span class="s1">&#39;RAW(1)&#39;</span><span class="p">})</span>
-
-<span class="c1"># Show the SQL data types of the columns</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select data_type from all_tab_columns where table_name = &#39;tbl3&#39;&quot;</span><span class="p">)</span>
-<span class="n">cr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Next, you will create another permanent table but this time with dbtypes specified as a list of SQL data types that matches the order of the columns.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a table with dbtypes specified as a list of SQL data types </span>
-<span class="c1"># matching the order of the columns</span>
-
-<span class="k">try</span><span class="p">:</span> <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;tbl4&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-
-<span class="n">oml_df4</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;tbl4&#39;</span><span class="p">,</span> <span class="n">dbtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BINARY_DOUBLE&#39;</span><span class="p">,</span><span class="s1">&#39;CHAR(1)&#39;</span><span class="p">,</span><span class="s1">&#39;RAW(1)&#39;</span><span class="p">])</span>
-
-<span class="c1"># Show the SQL data type of the columns</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select data_type from all_tab_columns where table_name = &#39;tbl4&#39;&quot;</span><span class="p">)</span>
-<span class="n">cr</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>Finally, you may delete the persistent table in an Oracle Database schema with the <strong><em>oml.drop()</em></strong> function.</p>
-<p><strong>Caution:</strong>
- The <strong><em>oml.drop()</em></strong> function deletes a persistent database table and is an irreversible operation. Also, the Python <strong><em>del</em></strong> function will remove an oml.DataFrame proxy object (Proxy objects are discussed shortly) and its associated temporary table; <strong><em>del</em></strong> does not delete a persistent table.</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop the persistent tables</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;tbl1&#39;</span><span class="p">)</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;tbl2&#39;</span><span class="p">)</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;tbl3&#39;</span><span class="p">)</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;tbl4&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.3.-Pull-Data-from-the-Database-to-a-Local-Python-Session"><span style="color:teal">2.3. Pull Data from the Database to a Local Python Session</span><a class="anchor-link" href="#2.3.-Pull-Data-from-the-Database-to-a-Local-Python-Session">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>OMl4Py allows you to pull (copy) data from the database into a Python session. Use the <strong><em>pull()</em></strong> method of the oml proxy object to create a local Python object that contains a copy of the data referenced by the oml object. The pull method of an oml object returns a Python object of the same type. The Python object exists in-memory in the local Python session.</p>
-<p>The example below displays the type of the <strong>oml_df</strong> object that references the temporary database table created earlier. Notice that <strong>oml_df</strong> is an OML DataFrame object.</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the data type of oml_df</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">oml_df</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Pull the data from <strong>oml_df</strong> object (database-resident) to <strong>df2</strong> object in local memory using <strong><em>pull()</em></strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Pull the data from oml_df into local memory</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">oml_df</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Display the type of <strong>df2</strong>. Notice that df2 is a Pandas DataFrame object. Whenever you pull data from the database (OML DataFrame object), the result will be stored locally in Python as a Pandas DataFrame.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Display the data type of df</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note:</strong> You can pull data to a local Pandas DataFrame only if the data can fit into the Python session memory.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.4.-Create-a-Python-Proxy-Object-for-a-Database-Object"><span style="color:teal">2.4. Create a Python Proxy Object for a Database Object</span><a class="anchor-link" href="#2.4.-Create-a-Python-Proxy-Object-for-a-Database-Object">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Proxy objects are references to the actual objects that reside in the database. They only exist in the current session and will be deleted when the database connection is terminated, unless they are stored in a datastore.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>To demonstrate this example let's first load a dataset into the Database. We will load the <strong>IRIS</strong> dataset into the Python session and then push it to the Database using <strong><em>oml.create()</em></strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">load_iris</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="c1"># Load the IRIS dataset from sklearn.datasets</span>
-<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
-
-<span class="c1"># Extract the relevant vectors from the dataset </span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> 
-                 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SEPAL_LENGTH&quot;</span><span class="p">,</span> <span class="s2">&quot;SEPAL_WIDTH&quot;</span><span class="p">,</span> <span class="s2">&quot;PETAL_LENGTH&quot;</span><span class="p">,</span> <span class="s2">&quot;PETAL_WIDTH&quot;</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;virginica&#39;</span><span class="p">}[</span><span class="n">x</span><span class="p">],</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">)),</span> 
-                 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">])</span>
-
-<span class="c1"># Create the Pandas DataFrame of the IRIS dataset</span>
-<span class="n">iris_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># Load the IRIS dataset into a Database table named IRIS</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s2">&quot;IRIS&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-<span class="n">IRIS</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">iris_df</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;IRIS&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Print the first few lines from the loaded dataset to ensure the table IRIS was successfully loaded in the Database.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">IRIS</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>Now that we have a sample dataset loaded in the database, use the <strong><em>oml.sync()</em></strong> function to create a Python object as a proxy for the IRIS table. The <strong><em>oml.sync()</em></strong> method pulls the results of a database table, view, or SQL statement, and returns the dataset into an oml.DataFrame object, which becomes the proxy for the database object.</p>
-<p>You can use the proxy oml.DataFrame object to select data from the table. When you execute a Python operation that selects data from the table, the operation returns the current data from the database object.</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the Python object oml_iris as a proxy for the database table IRIS</span>
-
-<span class="n">oml_iris</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;IRIS&#39;</span><span class="p">)</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">oml_iris</span><span class="p">)</span>
-
-<span class="c1"># Get the first few rows from the database</span>
-<span class="n">oml_iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>If some application adds a column to the IRIS table, or changes any other metadata, the oml.DataFrame proxy object (<strong>oml_iris</strong>) will not reflect the change until <strong><em>oml.sync()</em></strong> is invoked again.</p>
-<p>Let's add a new column to the IRIS database table named <strong>GENOME</strong> and note that the <strong>oml_iris</strong> proxy object does not know about the newly added column.</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cr</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">cr</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ALTER TABLE iris ADD (genome VARCHAR2(100))&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="n">cr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search_space</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;RFOR_SAMPLING_RATIO&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]},</span> 
+              <span class="s1">&#39;RFOR_NUM_TREES&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;discrete&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">55</span><span class="p">]},</span>
+              <span class="s1">&#39;TREE_IMPURITY_METRIC&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;categorical&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;TREE_IMPURITY_ENTROPY&#39;</span><span class="p">,</span> <span class="s1">&#39;TREE_IMPURITY_GINI&#39;</span><span class="p">]},}</span>
 </pre></div>
 
     </div>
@@ -13830,7 +13765,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_iris</span><span class="o">.</span><span class="n">columns</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> 
+                  <span class="n">score_metric</span><span class="o">=</span><span class="s1">&#39;f1_macro&#39;</span><span class="p">,</span> <span class="n">param_space</span> <span class="o">=</span> <span class="n">search_space</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13841,9 +13777,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Invoke <strong><em>oml.sync()</em></strong> again to synchronize the metadata of the oml.DataFrame <strong>oml_iris</strong> with the IRIS database table.</li>
-</ol>
+<p><strong>7)</strong> Show <strong>f1_score</strong> score of the tuned model and the corresponding hyperparameters.</p>
 
 </div>
 </div>
@@ -13853,393 +13787,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_iris</span> <span class="o">=</span>  <span class="n">oml</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="s2">&quot;IRIS&quot;</span><span class="p">)</span>
-<span class="n">oml_iris</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>To display all oml.DataFrame proxy objects defined in your Python session, use the <strong><em>oml.dir()</em></strong> function.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># List the proxy objects in the schema. </span>
-<span class="n">oml</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="STEP-3:-Saving-Python-Objects-in-the-Database"><span style="color:teal">STEP 3: Saving Python Objects in the Database</span><a class="anchor-link" href="#STEP-3:-Saving-Python-Objects-in-the-Database">&#182;</a></h2><hr>
-<p>Python objects exist for the duration of the current Python session unless you explicitly save them. You can save one or more Python objects, including OML proxy objects, to a named <strong>Datastore</strong> and then load those objects later in another Python session.</p>
-<p>Datastores exist in the user’s Oracle Database schema, and the objects saved to the datastore persist in the database until explicitly deleted. Additionally, the objects in the datastore can be made available to other users or programs by granting them read privileges.</p>
-<p>Additionally, the saved objects in the datastore are accessible to Embedded Python Execution through the Python and SQL interfaces. Embedded execution is discussed in a different lab.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.1.-Save-Python-Objects-to-Datastore"><span style="color:teal">3.1. Save Python Objects to Datastore</span><a class="anchor-link" href="#3.1.-Save-Python-Objects-to-Datastore">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Oracle Machine Learning for Python creates the datastore in the user’s Oracle Database schema. A datastore and the objects it contains, persist in the database until you delete them.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>To demonstrate this feature you will load three data sets. For each dataset, combine the target variable and predictors into a single Pandas DataFrame and invoke <strong><em>oml.create()</em></strong> to save the dataset in the database, and then display the columns for each using the <strong><em>columns</em></strong> method.</li>
-</ol>
-<ol>
-<li>The first dataset you will load is the <strong>iris</strong> dataset from <strong>sklearn.datasets</strong>. First, load the dataset in your Python session as a <strong>Pandas DataFrame</strong> object, and then persist it in the database as a permanent table using <strong><em>oml.create()</em></strong> which will be referenced in the python session as an <strong>OML DataFrame</strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">datasets</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SEPAL_LENGTH&#39;</span><span class="p">,</span><span class="s1">&#39;SEPAL_WIDTH&#39;</span><span class="p">,</span>
-                                       <span class="s1">&#39;PETAL_LENGTH&#39;</span><span class="p">,</span><span class="s1">&#39;PETAL_WIDTH&#39;</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span>
-                 <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;virginica&#39;</span><span class="p">}[</span><span class="n">x</span><span class="p">],</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">)),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">])</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">oml</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="s1">&#39;IRIS&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="n">IRIS</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;IRIS&#39;</span><span class="p">)</span>
-<span class="n">iris</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">IRIS</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Load the second dataset - the <strong>diabetes</strong> dataset. But this time, persist it in the database as a temporary table using <strong><em>oml.push()</em></strong>. Print the OML DataFrame columns once the dataset gets saved in the database.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diabetes</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diabetes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diabetes</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;disease_progression&#39;</span><span class="p">])</span>
-
-<span class="n">DIABETES_TMP</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">DIABETES_TMP</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Lastly, load the third dataset - the <strong>Boston housing</strong> dataset, also using <strong><em>oml.push()</em></strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">boston</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_boston</span><span class="p">()</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">])</span>
-
-<span class="n">BOSTON_TMP</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">BOSTON_TMP</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li><p>Save the <strong>iris</strong> Pandas DataFrame and the temporary <strong>BOSTON_TMP</strong> proxy object to a datastore named <strong>ds_pydata</strong> using <strong><em>oml.ds.save()</em></strong>, overwriting if the named datastore already exists with <strong><em>overwrite=True</em></strong> clause.</p>
-<p>Note that you can store actual data objects in a datastore, but data objects that are large should preferably remain as database tables, for performance and scalability.</p>
-<p>By storing the BOSTON_TMP object, the temporary table will not be deleted when the session terminates.</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iris&#39;</span><span class="p">:</span><span class="n">iris</span><span class="p">,</span> <span class="s1">&#39;oml_boston&#39;</span><span class="p">:</span><span class="n">BOSTON_TMP</span><span class="p">},</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pydata&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;python datasets&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Add a third object, the temporary DIABETES proxy object, to the same datastore using the clause <strong><em>append=True</em></strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;oml_diabetes&#39;</span><span class="p">:</span><span class="n">DIABETES_TMP</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pydata&quot;</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Save the <strong>IRIS</strong> OML DataFrame to a new datastore named <strong>ds_iris_data</strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;iris&#39;</span><span class="p">:</span><span class="n">IRIS</span><span class="p">},</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_iris_data&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;iris dataset&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>List the datastores that you have created using <strong><em>oml.ds.dir()</em></strong>. Notice we see the datastore name, the number of objects in the datastore, the size in bytes consumed, when the datastore was create/updated, and any description provided by the user. Our two datastores <strong>ds_iris_data</strong> and <strong>ds_pydata</strong> are present, with the latter containing three objects.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>To illustrate storing other types of objects in datastores, we'll create regression models using sklearn and OML4Py.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">regr1</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">regr1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
-
-<span class="n">regr2</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">glm</span><span class="p">(</span><span class="s2">&quot;regression&quot;</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">BOSTON_TMP</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">BOSTON_TMP</span><span class="p">[</span><span class="s1">&#39;Value&#39;</span><span class="p">]</span>
-<span class="n">regr2</span> <span class="o">=</span> <span class="n">regr2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Save objects to a datastore and allow the read privilege to be granted to them using <strong><em>grantable=True</em></strong>. </li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;regr1&#39;</span><span class="p">:</span><span class="n">regr1</span><span class="p">,</span> <span class="s1">&#39;regr2&#39;</span><span class="p">:</span><span class="n">regr2</span><span class="p">},</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pymodel&quot;</span><span class="p">,</span> <span class="n">grantable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.2.-Load-Python-Objects-from-Datastore"><span style="color:teal">3.2. Load Python Objects from Datastore</span><a class="anchor-link" href="#3.2.-Load-Python-Objects-from-Datastore">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Prior to loading objects from the datastore, let's first remove the exiting Python objects that were stored in the datastore in the previous step.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span> <span class="k">del</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-
-<span class="k">try</span><span class="p">:</span> <span class="k">del</span><span class="p">(</span><span class="n">oml_boston</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-
-<span class="k">try</span><span class="p">:</span> <span class="k">del</span><span class="p">(</span><span class="n">oml_diabetes</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Load the all Python objects from the <strong>ds_pydata</strong> datastore to the global workspace and sort the result by name. Notice that they have the name specified in the dictionary when saved, not the Python variable name.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pydata&quot;</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Verify the objects got loaded using the <strong><em>head()</em></strong> function.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">score</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;all_evals&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Score for the rf model with the best parameters: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">score</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14252,20 +13801,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_boston</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml_diabetes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -14276,387 +13812,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Next, selectively load only one object (<strong>regr2</strong>) from <strong>ds_pymodel</strong> datastore to the global workspace.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pymodel&quot;</span><span class="p">,</span> <span class="n">objs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;regr2&quot;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Load the named Python object <strong>regr1</strong> from <strong>ds_pymodel</strong> datastore to the user's workspace.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pymodel&quot;</span><span class="p">,</span> <span class="n">objs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;regr1&quot;</span><span class="p">],</span> <span class="n">to_globals</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.2.-Manage-Datastore-Objects"><span style="color:teal">3.2. Manage Datastore Objects</span><a class="anchor-link" href="#3.2.-Manage-Datastore-Objects">&#182;</a></h3><p>Oracle Machine Learning for Python provides functions for managing objects in a datastore.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Show all saved datastores using <strong><em>oml.ds.dir()</em></strong>. Notice that you can list the attributes to be printed, as shown in the square brackets.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">(</span><span class="n">dstype</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)[[</span><span class="s1">&#39;owner&#39;</span><span class="p">,</span> <span class="s1">&#39;datastore_name&#39;</span><span class="p">,</span> <span class="s1">&#39;object_count&#39;</span><span class="p">]]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Grant the read privilege on <strong>ds_pymodel</strong> to all users by specifying <strong><em>user=None</em></strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">grant</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pymodel&quot;</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s2">&quot;datastore&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>List the datastores to which read privileges have been granted. This is possible with <strong><em>oml.ds.dir()</em></strong> when using the <strong><em>dstype="grant"</em></strong> clause.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">(</span><span class="n">dstype</span><span class="o">=</span><span class="s2">&quot;grant&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Show datastores to which this user has been granted the read privilege (there currently are none).</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">(</span><span class="n">dstype</span><span class="o">=</span><span class="s2">&quot;granted&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Show datastores whose name matches a pattern.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;pydata&#39;</span><span class="p">,</span> <span class="n">regex_match</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">[[</span><span class="s1">&#39;datastore_name&#39;</span><span class="p">,</span> <span class="s1">&#39;object_count&#39;</span><span class="p">]]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>The datastore objects can be described using the <strong><em>oml.ds.describe()</em></strong> function. The following example demonstrates the use of oml.ds.describe().</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Describe the contents of the ds_pydata datastore</span>
-
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;ds_pydata&#39;</span><span class="p">)</span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Show the class of the objects in the datastore. Notice that we have <strong>iris</strong> saved as a Pandas DataFrame, and <strong>oml_boston</strong> and <strong>oml_diabetes</strong> saved as an OML DataFrame.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pydata&quot;</span><span class="p">)[[</span><span class="s1">&#39;object_name&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">]]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Revoke the read privilege from every user, and again show datastores to which read privilege has been granted. (results should be empty).</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Revoke the privilege</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">revoke</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pymodel&quot;</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s2">&quot;datastore&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-
-<span class="c1"># Get the grants after revoke</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">(</span><span class="n">dstype</span><span class="o">=</span><span class="s2">&quot;grant&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Use the <strong><em>oml.ds.delete()</em></strong> function to delete one or more datastores in the Oracle Database schema, or to delete objects in a datastore. But first, get the object counts in the current datastores.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Show the existing datastores.</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Delete the <strong>iris</strong> and <strong>oml_boston</strong> objects from the datastore.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Delete some objects from the datastore</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pydata&quot;</span><span class="p">,</span> <span class="n">objs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iris&quot;</span><span class="p">,</span> <span class="s2">&quot;oml_boston&quot;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Once again, check the object counts in the datastores. Note that <strong>ds_pydata</strong> now has only 1 object.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Delete the <strong>ds_pydata</strong> datastore altogether and note the datastore does not show up in <strong><em>oml.ds.dir()</em></strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Delete a datastore</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ds_pydata&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Delete all datastores what match a pattern, using <strong>regex_match=True</strong>.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Delete all datastores whose names match a pattern</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;_pymodel&quot;</span><span class="p">,</span> <span class="n">regex_match</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Show the existing datastores again.</span>
-<span class="n">oml</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">dir</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Summary"><span style="color:teal">Summary</span><a class="anchor-link" href="#Summary">&#182;</a></h1><hr>
-<p>This lab has demonstrated how easy it is to work with database-resident data using Oracle Machine learning for Python. OML4Py allows you can work directly with in-database objects, or pull them into a local Python session. You are able to store Python objects in a database-resident datastore so they are available for later use, or you can share the stored objects with other Python users and collaborate in your ML development.</p>
+<h2 id="Summary-"><span style="color:teal">Summary </span><a class="anchor-link" href="#Summary-">&#182;</a></h2><hr>
+<p>As demonstrated in this lab, AutoML performs common data science tasks automatically, with less effort and potentially better results. It also leverages the parallel processing and scalability of the Oracle Database and machine learning techniques to minimize execution time while producing high-quality machine learning models.</p>
 
 </div>
 </div>
