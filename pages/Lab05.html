@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Lab02</title>
+<title>Lab05</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,18 +13077,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Lab-02:-Using-Regression-to-Predict-House-Prices"><span style="color:teal">Lab 02: Using Regression to Predict House Prices</span><a class="anchor-link" href="#Lab-02:-Using-Regression-to-Predict-House-Prices">&#182;</a></h1><hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Using-Regression-to-Predict-House-Prices"><span style="color:teal">Using Regression to Predict House Prices</span><a class="anchor-link" href="#Using-Regression-to-Predict-House-Prices">&#182;</a></h1><hr>
 <p><strong>Regression</strong> models in machine learning are used to predict a continuous value based on a set of features. Regression is mostly used for forecasting a target value (numeric) by formulating its relationship with a set of independent variables. An example of a real-world application of regression is in predicting house prices, given features such as the house size, total rooms, property location, family income, etc., which are the features.</p>
 <p>In this lab exercise, you will explore various regression techniques and machine learning algorithms for predicting house prices in the state of California. You will also learn about the methods and optimization techniques involved in preparing the dataset, as not every dataset is a perfectly curated for machine learning. Regression is a type of <strong>supervised learning</strong> that requres data that is properly labeled and cleansed to achieve the best accuracy in prediction.</p>
 <p>The <strong>Oracle Database</strong> offers a variety of regression techniques in the database such as ridge regression, feature creation and feature selection, on data stored in multiple formats including text and transactional. Performing machine learning in the Database makes available the processing power, memory, and storage capacities of the database server, which is ideally suited for solving high performance and large-scale machine learning problems.</p>
-<p>This lab will walk you through a complete machine learning solution using a real-world dataset to let you see how all the pieces come together. We’ll attempt to follow the general machine learning workflow step-by-step:</p>
+<h1 id="Lab-Objectives"><span style="color:teal">Lab Objectives</span><a class="anchor-link" href="#Lab-Objectives">&#182;</a></h1><p>This lab will walk you through a complete machine learning solution using a real-world dataset to let you see how all the pieces come together. We’ll attempt to follow the general machine learning workflow step-by-step:</p>
 <ul>
 <li>Exploratory data analysis</li>
 <li>Data cleaning and formatting</li>
@@ -13105,6 +13098,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Lab-Steps"><span style="color:teal">Lab Steps</span><a class="anchor-link" href="#Lab-Steps">&#182;</a></h1><hr>
 <h2 id="STEP-1:-Exploratory-Data-Analysis"><span style="color:teal">STEP 1: Exploratory Data Analysis</span><a class="anchor-link" href="#STEP-1:-Exploratory-Data-Analysis">&#182;</a></h2><hr>
 <p>When getting started with <strong>Machine Learning</strong>, it is best to work with real-world data . For this lab you will use the <strong>California Housing Prices</strong> dataset. This data is from the 1990 California census but for the sake of lab purposes we will pretend it is recent data. The data has been slightly altered since it was originally captured, and available for download from <a href="https://github.com/ageron/handson-ml/tree/master/datasets/housing">github</a>. The original dataset and its description is available <a href="https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.htm">here</a>. The dataset has been pre-downloaded in the <strong>datasets</strong> folder.</p>
 
@@ -15174,7 +15168,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.4.-Summary"><span style="color:teal">5.4. Summary</span><a class="anchor-link" href="#5.4.-Summary">&#182;</a></h3><p>This lab gave overview on how to approach a machine learning problem using <strong>Oracle Machine Learning for Python</strong>, all the way from data preperation to choosing the appropriate algorithms that works best for the dataset. You have seen that we iteratively identified the ML algorithm that gives the best performance, as usually this is the only approach as it is hard to know in the beginning which algorithm suits the best.</p>
+<h1 id="Summary"><span style="color:teal">Summary</span><a class="anchor-link" href="#Summary">&#182;</a></h1><hr>
+<p>This lab provided an overview on how to approach a machine learning problem using <strong>Oracle Machine Learning for Python</strong>, all the way from data preperation to choosing the appropriate algorithms that works best for the dataset. You have seen that we iteratively identified the ML algorithm that gives the best performance, as usually this is the only approach as it is hard to know in the beginning which algorithm suits the best.</p>
 <p>We saw that machine learning is applicable to the task of predicting house prices using available datasets. Using a gradient boosted regressor we were able to predict the scores on the test set to within $40k of the true value, which can be further improved by hypertuning the parameters.</p>
 
 </div>

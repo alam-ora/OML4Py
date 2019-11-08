@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>2 - OML4Py Data Selection and Manipulation</title>
+<title>Lab03</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,14 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Data-Preparation-and-Exploration-using-OML4Py"><span style="color:teal">Data Preparation and Exploration using OML4Py</span><a class="anchor-link" href="#Data-Preparation-and-Exploration-using-OML4Py">&#182;</a></h1><hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Data-Preparation-and-Exploration"><span style="color:teal">Data Preparation and Exploration</span><a class="anchor-link" href="#Data-Preparation-and-Exploration">&#182;</a></h1><hr>
 <p><strong>Oracle Machine Learning for Python</strong> provides various methods and classes to perform exploratory analysis of database-resident data, and apply best practice techniques to prepare the data for machine learning.</p>
 <p>The classes of various OML4Py data types contain methods that are overloaded to work like regular Python functions (aka OML4Py's <strong>Transparency Layer</strong>), thereby making it easier to prepare very large enterprise grade database-resident datasets, and optimally model them in formats suitable for machine learning. OML4Py also provides methods for executing common statistical operations on the dataset, and allows you to graphically render the data in various types of charts.</p>
 <p>This hands-on lab highlights the <strong>OML4py Transparency Layer</strong>, and demonstrates that many familiar Python functions automatically translate to SQL and run inside the database for optimal performance and execution.</p>
@@ -13108,13 +13101,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Lab-Steps"><span style="color:teal">Lab Steps</span><a class="anchor-link" href="#Lab-Steps">&#182;</a></h1><hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="STEP-1:-Load-a-Sample-Dataset-in-the-Oracle-Database"><span style="color:teal">STEP 1: Load a Sample Dataset in the Oracle Database</span><a class="anchor-link" href="#STEP-1:-Load-a-Sample-Dataset-in-the-Oracle-Database">&#182;</a></h2><hr>
 <p>Load a sample dataset that will be used in this step.</p>
 <ol>
@@ -13403,7 +13389,7 @@ div#notebook {
                       <span class="s2">&quot;val&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">],</span>
                       <span class="s2">&quot;ch&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;q&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span>
                       <span class="s2">&quot;num&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">6.7</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]})</span>
-<span class="n">OML_DF</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">my_df</span><span class="p">)</span>
+<span class="n">OML_DF</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
 <span class="nb">print</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
 
@@ -14930,13 +14916,6 @@ the categories with the most entries for each column value.</p>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Summary"><span style="color:teal">Summary</span><a class="anchor-link" href="#Summary">&#182;</a></h1><hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>In this lab you have utilized the various data preparation and manipulation methods of OML4Py - which in many ways are very similar to the Python's methods that you are usually accustomed with, just that the OML4Py's methods overloaded to work on datasets that reside in the Oracle Database through the OML4Py tranparency layer.</p>
 
 </div>
