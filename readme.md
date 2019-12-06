@@ -14,11 +14,11 @@ This hands-on workshop focuses on Oracle Machine Learning for Python (OML4PY) wh
 
 ## Workshop Agenda :
 
-[**Lab 0:** Setup the Lab Environment](./pages/Lab00.html)
+- **Lab 0:** Setup the Lab Environment
 
 This lab introduces the student lab environment and contains the steps to setup the student desktop for connecting to the lab virtual machine.
 
-[**Lab 1:** Introduction to Python](./pages/Lab01.html)
+- **Lab 1:** Introduction to Python
 
 Get introduced to Python and Jupyter. Learn to work with basic python constructs and Pandas DataFrames objects.
 
