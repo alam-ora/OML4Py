@@ -38,14 +38,6 @@ Embedded Python Execution, a feature of Oracle Machine Learning for Python, give
 
 Explore the CA housing prices dataset and build machine learning models for predicting house prices in the state of California. The lab walks through a real-world use case and the steps to apply an AI/ML solution for building accurate prediction models.
 
-- **Lab** : Build prediction models to classify fraudulent credit card transactions
-
-Build machine learning models to detect fraudulent credit card transactions using real-world data from financial institutions (Kaggle dataset). Prepare an unbalanced dataset using popular techniques such as under-sampling and utilize k-fold to learn iteratively and find the best hyperparameters for the algorithm. Create confusion matrix and compare prediction accuracy using Support Vector Machines, Logistic Regression and Neural Nets. You will also learn to save python objects and scripts in the Oracle database, a feature of OML4Py.
-
-- **Lab** : Clustering wine data using unsupervised learning algorithms
-
-Use unsupervised learning methods such as K-Means to cluster the Wine Data sourced from three different cultivars from Italy. Using data scaling and  dimensionality reduction techniques like PCA and ICA, you will automatically generate independent set of features that help explain the variance in the dataset. Analyze the results of multiple approaches for clustering the Wine data and report accuracy.
-
 [**Lab 6:** Use AutoML for Automatic Feature and Model Selection](./pages/Lab06.html)
 
 Automate end-to-end process of applying machine learning to real-world problems using the emerging AutoML techniques. In this lab you will use the automatic feature selection, model selection, and hyperparameter tuning of AutoML, a feature of OML4Py.
