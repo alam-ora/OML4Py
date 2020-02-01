@@ -6,8 +6,6 @@ The VM is accessed from a local desktop or a laptop through a public IP address 
 
 Follow the steps outlined in this lab to setup your lab environment.
 
->**Note**
->
 >If this is an **instructor-led** workshop, the attendees will be assigned a lab VM by the instructor (one per attendee) and its IP Address and login credentials will be shared.
 >
 >If this is a **self-paced** workshop, or if you plan on using your own Oracle Cloud tenancy/account, this lab provides instructions for provisioning a lab VM in your tenancy.
