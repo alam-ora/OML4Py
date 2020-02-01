@@ -1,0 +1,52 @@
+{
+    "tutorials": [
+        {
+            "title": "Oracle Machine Learning with Python",
+            "description":"Introduction to the workshop",
+            "publisheddate": "01/15/2020",
+            "filename":"./about-this-lab/content.md"
+        },
+        {
+            "title": "Lab 0: Setup the Lab Environment",
+            "description":"Setup the Lab Environment",
+            "publisheddate": "01/15/2020",
+            "filename":"./lab-setup/content.md"
+        },
+        {
+            "title": "Lab 1: Introduction to Python",
+            "description":"Introduction to Python",
+            "publisheddate": "01/15/2020",
+            "filename":"./intro-python/content.md"
+        },
+        {
+            "title": "Lab 2: Getting started with Oracle Machine Learning for Python",
+            "description":"Getting started with Oracle Machine Learning for Python",
+            "publisheddate": "01/15/2020",
+            "filename":"./intro-oml4py/content.md"
+        },
+        {
+            "title": "Lab 3: Data Preparation and Exploration",
+            "description":"Data Preparation and Exploration",
+            "publisheddate": "01/15/2020",
+            "filename":"./data-preparation-exploration/content.md"
+        },
+        {
+            "title": "Lab 4: Embedded Python Execution",
+            "description":"Embedded Python Execution",
+            "publisheddate": "01/15/2020",
+            "filename":"./embedded-python/content.md"
+        },
+        {
+            "title": "Lab 5: Using Regression to Estimate House Prices",
+            "description":"Using Regression to Estimate House Prices",
+            "publisheddate": "01/15/2020",
+            "filename":"./regression-use-case/content.md"
+        },
+        {
+            "title": "Lab 6: Automatic Machine Learning with Python",
+            "description":"Automatic Machine Learning with Python",
+            "publisheddate": "01/15/2020",
+            "filename":"./automl-python/content.md"
+        }
+    ]
+}
