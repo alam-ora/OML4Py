@@ -1,8 +1,8 @@
 {
     "tutorials": [
         {
-            "title": "Oracle Machine Learning with Python",
-            "description":"Introduction to the workshop",
+            "title": "Workshop Overview",
+            "description":"Workhop Overview",
             "publisheddate": "01/15/2020",
             "filename":"./about-this-lab/content.md"
         },

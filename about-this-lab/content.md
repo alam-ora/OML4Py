@@ -1,4 +1,6 @@
-# Oracle Machine Learning with Python Workshop
+# Oracle Machine Learning with Python
+
+## Workshop Overview
 
 **Artificial Intelligence** and **Machine Learning** have become increasingly necessary for enterprises to translate today's data into direct business value. This course introduces learners to the basic concepts of AI/ML, using a mix of engaging lectures and hands-on activities to help you navigate the first steps in this exciting field. The exercises present real world use cases that show how Oracle is actively helping companies maximize business benefits through AI and ML.
 
