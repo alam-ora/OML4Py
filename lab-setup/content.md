@@ -32,20 +32,16 @@ To connect to the lab VM you need a laptop/desktop with the following **Microsof
 
 **Microsoft Windows hosts :**
 
-- Windows 10, Server 2012 R2, 2016
+- Windows 10, Server 2012 R2, 2016, 8.1
 
-Install the Remote Desktop App from the Microsoft Store using the link:
+Install the Remote Desktop App from the Microsoft Store using the link :
 [https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps](https://www.microsoft.com/en-us/store/p/microsoft-remote-desktop/9wzdncrfj3ps)
-
-- Windows 8
-
-Use the built-in Remote Desktop Connection application with the following Hotfix:
-[http://www.microsoft.com/en-us/download/confirmation.aspx?id=35387](http://www.microsoft.com/en-us/download/confirmation.aspx?id=35387)
 
 - Windows 7, Server 2008 R2
 
-Use the built-in Remote Desktop Connection application with the following Hotfix:
-[https://support.microsoft.com/en-us/help/2923545/update-for-rdp-8-1-is-available-for-windows-7-sp1](https://support.microsoft.com/en-us/help/2923545/update-for-rdp-8-1-is-available-for-windows-7-sp1)
+Use the built-in Remote Desktop Connection application and apply the updates :
+
+[https://support.microsoft.com/en-us/help/2830477/update-for-remoteapp-and-desktop-connections-feature-is-available-for](https://support.microsoft.com/en-us/help/2830477/update-for-remoteapp-and-desktop-connections-feature-is-available-for)
 
 **macOS, Mac OS X hosts :**
 
