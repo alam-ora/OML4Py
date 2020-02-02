@@ -206,7 +206,7 @@ In this step you need the lab VM's **IP Address**, **User Name** and **Password*
 
 ![](./images/windows-mac-remote-desktop.png " ")
 
->**Note :** For Windows 7, 8, 2008 R2, you need to use **Remote Desktop Connection** application instead.
+>**Note :** For Windows 7 and 2008 R2, you can use **Remote Desktop Connection** application.
 
 2. Add a new desktop connection to the lab VM. Click **+Add** -> **Desktop** in Windows, or, **[+]** -> **Add PC** in Mac.
 
