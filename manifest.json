@@ -4,7 +4,7 @@
             "title": "Workshop Overview",
             "description":"Workhop Overview",
             "publisheddate": "01/15/2020",
-            "filename":"./about-this-lab/content.md"
+            "filename":"./about-this-workshop/content.md"
         },
         {
             "title": "Lab 0: Setup the Lab Environment",
