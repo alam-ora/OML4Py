@@ -647,7 +647,7 @@ Follow the below steps if you are short on time and choose to run the labs witho
 
 ![](./images/notebook-dashboard.png " ")
 
-2. Click on **saved_notebooks** and browse to the folder that contains the saved Python notebooks.
+2. Click on **saved_notebooks** to browse the folder that contains the saved Python notebooks.
 
 ![](./images/click-saved-notebooks.png " ")
 
