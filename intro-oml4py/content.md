@@ -388,7 +388,7 @@ Python objects exist for the duration of the current Python session unless you e
 
 Datastores exist in the user’s Oracle Database schema, and the objects saved to the datastore persist in the database until explicitly deleted. Additionally, the objects in the datastore can be made available to other users or programs by granting them read privileges.
 
-Additionally, the saved objects in the datastore are accessible to Embedded Python Execution through the Python and SQL interfaces. Embedded execution is discussed in a different lab.
+The saved objects in the datastore are made accessible to Embedded Python Execution through the Python and SQL interfaces. Embedded execution is discussed in a different lab.
 
 ### 3.1. Save Python Objects to Datastore
 
@@ -647,30 +647,30 @@ Follow the below steps if you are short on time and choose to run the labs witho
 
 ![](./images/notebook-dashboard.png " ")
 
-2. Or, if you are in another notebook, or cannot locate the notebook dashboard, click **File** -> **Open**.
-
-![](./images/file-open.png " ")
-
-3. Click on **saved_notebooks** and browse to the folder that contains the saved Python notebooks.
+2. Click on **saved_notebooks** and browse to the folder that contains the saved Python notebooks.
 
 ![](./images/click-saved-notebooks.png " ")
 
-4. In the **saved-notebooks** folder click on **2-intro-oml4py** lab.
+> If you are in another notebook, or cannot locate the notebook dashboard, click **File** -> **Open**.
+>
+>![](./images/file-open.png " ")
+
+3. In the **saved-notebooks** folder click on **2-intro-oml4py** lab.
 
 ![](./images/click-2-intro-oml4py.png " ")
 
-5. You will be presented the notebook for this lab. Run the entire notebook by clicking **Kernel** -> **Restart and Run All**. This will run all executable statements of the notebook (i.e. in the Python statements in the cells).
+4. You will be presented the notebook for this lab. Run the entire notebook by clicking **Kernel** -> **Restart and Run All**. This will run all executable statements of the notebook (i.e. in the Python statements in the cells).
 
 ![](./images/restart-run-all.png " ")
 
-6. Confirm that you like to **Restart and Run All Cells**. The notebook will take a few minutes to run.
+5. Confirm that you like to **Restart and Run All Cells**. The notebook will take a few minutes to run.
 
 ![](./images/restart-and-run-all-confirm.png " ")
 
-7. After all cells of the notebook successfully complete, you will see that each cell will get a number assigned in square brackets and (optionally) an output will be shown (also ensure there were no errors).
+6. After all cells of the notebook successfully complete, you will see that each cell will get a number assigned in square brackets and (optionally) an output will be shown (also ensure there were no errors).
 
   Post completion, confirm that the last few cells of your notebook looks similar to the following:
 
 ![](./images/2-intro-oml4py-complete.png " ")
 
-8. You have successfully executed the notebook. You may now go through the notebook steps and inspect the individual commands and their respective outputs.
+7. You have successfully executed the notebook. You may now go through the notebook steps and inspect the individual commands and their respective outputs.
