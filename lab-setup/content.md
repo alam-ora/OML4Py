@@ -279,13 +279,13 @@ $ <copy>jupyter notebook</copy>
 2. At the prompt, enter the following command to download the latest Python Notebooks from a public bucket in Oracle Cloud Object Storage.
 
 ````
-$ <copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/OMLWorkshop/o/saved_notebooks.tar</copy>
+$ <copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/OMLWorkshop/o/saved_notebooks.zip -O saved_notebooks.zip</copy>
 ````
 
 3. Unzip the tar file and extract the materials in **~/OML4Py/saved_notebooks** folder.
 
 ````
-$ <copy>tar -C ~/OML4Py/saved_notebooks -xvf saved_notebooks.tar</copy>
+$ <copy>unzip -o saved_notebooks.zip -d  ~/OML4Py/saved_notebooks</copy>
 ````
 
 4. Verify the lab materials were successfully downloaded.
