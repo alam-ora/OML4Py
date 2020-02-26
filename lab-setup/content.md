@@ -103,7 +103,7 @@ Follow the steps outlined below to import the lab VM custom image.
     * Copy/paste the following **OBJECT STORAGE URL** for the lab VM image :
 
 ````
-<copy>https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/OMLWorkshop/o/OML4Py_IMAGE</copy>
+<copy>https://objectstorage.us-phoenix-1.oraclecloud.com/p/E69FTXqvSOeuZDv5l5ATOZfj06adD6vcPogm3HvDGPY/n/oraclepartnersas/b/OMLWorkshop/o/OML4Py_IMAGE</copy>
 ````
 
 ![](./images/oci-import-image-dialog.png " ")
