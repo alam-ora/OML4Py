@@ -42,7 +42,6 @@ Click here to request your trial account: https://cloud.oracle.com/tryit
 
 ## Learn More about Oracle Machine learning
 
-- [Oracle Artificial Ingelligence](https://www.oracle.com/artificial-intelligence/)
 - [Oracle Artificial Intelligence](https://www.oracle.com/artificial-intelligence/)
 - [Getting Started with Oracle Machine Learning](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/omlug/get-started-oracle-machine-learning.html#GUID-2AEC56A4-E751-48A3-AAA0-0659EDD639BA)
 - [Oracle Machine Learning Solutions](https://www.oracle.com/artificial-intelligence/what-is-machine-learning.html)
