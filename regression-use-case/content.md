@@ -72,7 +72,7 @@ To complete this lab, you need the following account credentials and assets:
 
 ## **STEP 1** : Exploratory Data Analysis
 
-When getting started with **Machine Learning**, it is best to work with real-world data . For this lab you will use the **California Housing Prices** dataset. This data is from the 1990 California census but for the sake of lab purposes we will pretend it is recent data. The data has been slightly altered since it was originally captured, and available for download from [github](https://github.com/ageron/handson-ml/tree/master/datasets/housing). The original dataset and its description is available [here](https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.htm). The dataset has been pre-downloaded in the **datasets** folder.
+When getting started with **Machine Learning**, it is best to work with real-world data . For this lab you will use the **California Housing Prices** dataset. This data is from the 1990 California census but for the sake of lab purposes we will pretend it is recent data. The data has been slightly altered since it was originally captured, and available for download from [github](https://github.com/ageron/handson-ml/tree/master/datasets/housing). The original dataset and its description is available [here](https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html). The dataset has been pre-downloaded in the **datasets** folder.
 
 1. Define a Python function **load\_housing\_data** that will load the dataset from the file system into a **Pandas DataFrame** object named **housing**. Run the function to fetch the data in the DataFrame.
 
@@ -746,7 +746,7 @@ res_glm = glm_mod.predict(TEST.drop('median_house_value'), supplemental_cols = T
 ````
 
 ````
-<copy>res_glm2</copy>
+<copy>res_glm</copy>
 ````
 
 5. Calculate RMSE (using the mathematical formula) on the prediction results and also **R^2** using the **score()** function. Notice that they are not much different than what you saw back in **STEP 3**. This means we need to try some other ML method/algorithm for this problem.
@@ -868,8 +868,6 @@ Follow the below steps if you are short on time and choose to run the labs witho
 
 3. In the **saved-notebooks** folder click on **5-regression-housing-example** lab.
 
-![](./images/click-5-regression-housing-example.png " ")
-
 4. You will be presented the notebook for this lab. Run the entire notebook by clicking **Kernel** -> **Restart and Run All**. This will run all executable statements of the notebook (i.e. in the Python statements in the cells).
 
 ![](./images/restart-run-all.png " ")
@@ -879,9 +877,5 @@ Follow the below steps if you are short on time and choose to run the labs witho
 ![](./images/restart-and-run-all-confirm.png " ")
 
 6. After all cells of the notebook successfully complete, you will see that each cell will get a number assigned in square brackets and (optionally) an output will be shown (also ensure there were no errors).
-
-  Post completion, confirm that the last few cells of your notebook looks similar to the following:
-
-![](./images/5-regression-housing-example-complete.png " ")
 
 7. You have successfully executed the notebook. You may now go through the notebook steps and inspect the individual commands and their respective outputs.

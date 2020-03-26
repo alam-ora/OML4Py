@@ -228,7 +228,7 @@ x.concat(y)</copy>
 4. Next, create an oml.Float object with the rounded exponential of two times the values in the **num** column of the **OML\_DF** object, then concatenate it with the oml.DataFrame object **y** using a new column name **round(exp(2\*num))**.
 
 ````
-<copy>w = (OML_DF['num']\*2).exp().round(decimals=2)
+<copy>w = (OML_DF['num']*2).exp().round(decimals=2)
 y.concat({'round(exp(2*num))':w})</copy>
 ````
 
@@ -531,7 +531,7 @@ CART</copy>
 2. Add a column **'Price'** multiplying **'Quantity'** with **'Unit_price'**, rounded to 2 decimal places.
 
 ````
-<copy>price = CART['Quantity']\*(CART['Unit_price'])
+<copy>price = CART['Quantity']*(CART['Unit_price'])
 print("Type: ", type(price))
 CART = CART.concat({'Price': price.round(2)})
 CART</copy>
@@ -779,8 +779,6 @@ Follow the below steps if you are short on time and choose to run the labs witho
 
 3. In the **saved-notebooks** folder click on **3-data-prep-explore** lab.
 
-![](./images/click-3-data-prep-explore.png " ")
-
 4. You will be presented the notebook for this lab. Run the entire notebook by clicking **Kernel** -> **Restart and Run All**. This will run all executable statements of the notebook (i.e. in the Python statements in the cells).
 
 ![](./images/restart-run-all.png " ")
@@ -790,9 +788,5 @@ Follow the below steps if you are short on time and choose to run the labs witho
 ![](./images/restart-and-run-all-confirm.png " ")
 
 6. After all cells of the notebook successfully complete, you will see that each cell will get a number assigned in square brackets and (optionally) an output will be shown (also ensure there were no errors).
-
-  Post completion, confirm that the last few cells of your notebook looks similar to the following:
-
-![](./images/3-data-prep-explore-complete.png " ")
 
 7. You have successfully executed the notebook. You may now go through the notebook steps and inspect the individual commands and their respective outputs.
