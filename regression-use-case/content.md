@@ -759,7 +759,7 @@ res_glm = glm_mod.predict(TEST.drop('median_house_value'), supplemental_cols = T
 <copy>glm_mod.score(test_x, test_y)</copy>
 ````
 
-### 5.2. Using Gradient Boosting in Regression
+### 5.3. Using Gradient Boosting in Regression
 
 Gradient Boosting is another ensemble technique which produces a prediction model that is an "ensemble" of multiple weak prediction models, usually decision trees. This is similar to Random Forest, the difference being the predictors in Gradient Boosting are made sequentially and not independently (using the **boosting** technique), which enables the predictors to learn from the mistakes of previous predictors.
 
